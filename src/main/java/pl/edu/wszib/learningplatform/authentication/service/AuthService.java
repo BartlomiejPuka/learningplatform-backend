@@ -2,8 +2,13 @@ package pl.edu.wszib.learningplatform.authentication.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
@@ -11,6 +16,7 @@ import pl.edu.wszib.learningplatform.authentication.email.MailService;
 import pl.edu.wszib.learningplatform.authentication.email.NotificationEmail;
 import pl.edu.wszib.learningplatform.authentication.model.VerificationToken;
 import pl.edu.wszib.learningplatform.authentication.repository.VerificationTokenRepository;
+import pl.edu.wszib.learningplatform.security.JwtProvider;
 import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.repository.UserRepository;
 
@@ -30,6 +36,8 @@ public class AuthService {
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailContentBuilder mailContentBuilder;
     private final MailService mailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public boolean signup(RegisterRequest registerRequest){
@@ -76,6 +84,11 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public void login(LoginRequest loginRequest) {
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String authenticationToken = jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(authenticationToken, loginRequest.getUsername());
     }
 }
