@@ -1,12 +1,14 @@
 package pl.edu.wszib.learningplatform.user.model;
 
 import lombok.*;
+import pl.edu.wszib.learningplatform.module.model.Module;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Table( name = "users")
@@ -32,4 +34,7 @@ public class User {
 
     private boolean enabled;
     private Instant createdAt;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Module> modules;
 }

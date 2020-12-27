@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.security;
+package pl.edu.wszib.learningplatform.util.security;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
