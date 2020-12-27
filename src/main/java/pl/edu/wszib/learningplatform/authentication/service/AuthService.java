@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
 import pl.edu.wszib.learningplatform.authentication.email.MailService;
@@ -14,6 +15,7 @@ import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.UUID;
 
 import static pl.edu.wszib.learningplatform.util.Constants.ACTIVATION_EMAIL;
@@ -31,6 +33,11 @@ public class AuthService {
 
     @Transactional
     public boolean signup(RegisterRequest registerRequest){
+
+        if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()){
+            return false;
+        }
+
         User user = registerRequest.toUser();
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
@@ -53,5 +60,22 @@ public class AuthService {
         verificationToken.setUser(user);
         verificationTokenRepository.save(verificationToken);
         return token;
+    }
+
+
+    public void verifyAccount(String token){
+        Optional<VerificationToken> verificationTokenOptional = verificationTokenRepository.findByToken(token);
+        verificationTokenOptional.orElseThrow(() -> new RuntimeException("Invalid token"));
+        fetchUserAndEnable(verificationTokenOptional.get());
+    }
+
+    @Transactional
+    public void fetchUserAndEnable(VerificationToken verificationToken) {
+        User user = verificationToken.getUser();
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
+    public void login(LoginRequest loginRequest) {
     }
 }
