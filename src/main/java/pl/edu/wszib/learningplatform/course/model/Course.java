@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.module.model;
+package pl.edu.wszib.learningplatform.course.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,12 +10,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table( name = "modules")
+@Table( name = "courses")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Module {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

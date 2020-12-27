@@ -1,7 +1,10 @@
 package pl.edu.wszib.learningplatform.user.model;
 
-import lombok.*;
-import pl.edu.wszib.learningplatform.module.model.Module;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import pl.edu.wszib.learningplatform.course.model.Course;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -36,5 +39,5 @@ public class User {
     private Instant createdAt;
 
     @ManyToMany(mappedBy = "users")
-    private Set<Module> modules;
+    private Set<Course> courses;
 }
