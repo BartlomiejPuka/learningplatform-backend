@@ -10,9 +10,6 @@ import pl.edu.wszib.learningplatform.controllers.dto.PasswordUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.UserDto;
 
 import java.util.List;
-import java.util.UUID;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @AllArgsConstructor
