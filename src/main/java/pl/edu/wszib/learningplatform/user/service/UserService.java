@@ -7,6 +7,7 @@ import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,4 +18,8 @@ public class UserService {
     public List<User> findAll(){
         return userRepository.findAll();
     }
+
+    public Optional<User> findById(long userId) { return userRepository.findById(userId); }
+
+    public User updateUser(User user) { return userRepository.save(user); }
 }
