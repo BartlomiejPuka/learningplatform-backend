@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.controllers;
+package pl.edu.wszib.learningplatform.controllers.rest;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
