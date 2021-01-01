@@ -1,9 +1,9 @@
 package pl.edu.wszib.learningplatform.components;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.edu.wszib.learningplatform.controllers.assemblers.UserAssembler;
 import pl.edu.wszib.learningplatform.controllers.dto.EmailUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.PasswordUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.UserDto;
@@ -13,7 +13,6 @@ import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_NOT_FOUND_MESSAGE_TEMPLATE;
@@ -22,11 +21,12 @@ import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_N
 @RequiredArgsConstructor
 public class UserComponent {
     private final UserService userService;
+    private final UserAssembler userAssembler;
     private final PasswordEncoder passwordEncoder;
 
     public List<UserDto> getUsers() {
         List<User> userModels = userService.findAll();
-        return userModels.stream().map(i->i.toDto()).collect(Collectors.toList());
+        return userModels.stream().map(userAssembler::toDto).collect(Collectors.toList());
     }
 
     public UserDto updateUserEmail(long userId, EmailUpdateDto email) {
@@ -35,7 +35,7 @@ public class UserComponent {
 
         updateUserEmail(user, email.getEmail());
 
-        return userService.updateUser(user).toDto();
+        return userAssembler.toDto(userService.updateUser(user));
     }
 
     public UserDto updateUserPassword(long userId, PasswordUpdateDto passwordUpdateDto) {
@@ -44,7 +44,7 @@ public class UserComponent {
 
         updateUserPassword(user, passwordUpdateDto);
 
-        return userService.updateUser(user).toDto();
+        return userAssembler.toDto(userService.updateUser(user));
     }
 
     private void updateUserPassword(User user, PasswordUpdateDto passwordUpdateDto){

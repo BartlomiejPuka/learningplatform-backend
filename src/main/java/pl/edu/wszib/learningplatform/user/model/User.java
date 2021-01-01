@@ -44,13 +44,13 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Course> courses;
 
-    public UserDto toDto(){
-        UserDto userDto = new UserDto();
-        userDto.setId(this.id);
-        userDto.setEmail(this.email);
-        userDto.setUsername(this.username);
-        userDto.setFirstName(this.firstName);
-        userDto.setLastName(this.lastName);
-        return userDto;
-    }
+//    public UserDto toDto(){
+//        UserDto userDto = new UserDto();
+//        userDto.setId(this.id);
+//        userDto.setEmail(this.email);
+//        userDto.setUsername(this.username);
+//        userDto.setFirstName(this.firstName);
+//        userDto.setLastName(this.lastName);
+//        return userDto;
+//    }
 }

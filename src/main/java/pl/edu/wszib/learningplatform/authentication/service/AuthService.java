@@ -14,6 +14,7 @@ import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
 import pl.edu.wszib.learningplatform.authentication.email.MailService;
 import pl.edu.wszib.learningplatform.authentication.email.NotificationEmail;
+import pl.edu.wszib.learningplatform.authentication.exception.UserAlreadyExistsException;
 import pl.edu.wszib.learningplatform.authentication.model.VerificationToken;
 import pl.edu.wszib.learningplatform.authentication.repository.VerificationTokenRepository;
 import pl.edu.wszib.learningplatform.util.security.JwtProvider;
@@ -25,6 +26,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static pl.edu.wszib.learningplatform.util.Constants.ACTIVATION_EMAIL;
+import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_ALREADY_EXISTS_MESSAGE_TEMPLATE;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +45,7 @@ public class AuthService {
     public boolean signup(RegisterRequest registerRequest){
 
         if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()){
-            return false;
+            throw new UserAlreadyExistsException(String.format(USER_ALREADY_EXISTS_MESSAGE_TEMPLATE, registerRequest.getUsername()));
         }
 
         User user = registerRequest.toUser();
