@@ -3,6 +3,7 @@ package pl.edu.wszib.learningplatform.user.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.learningplatform.course.model.Course;
 import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.repository.UserRepository;
 
@@ -22,4 +23,6 @@ public class UserService {
     public Optional<User> findById(long userId) { return userRepository.findById(userId); }
 
     public User updateUser(User user) { return userRepository.save(user); }
+
+    public List<Course> findCoursesEnrolledByUserId(long userId) { return userRepository.findCoursesEnrolledById(userId); }
 }

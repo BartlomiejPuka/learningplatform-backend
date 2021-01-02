@@ -18,9 +18,10 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String content;
+    @Lob
+    private String description;
+
+    private Long subCourseId;
 }

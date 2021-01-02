@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.progress.Model;
+package pl.edu.wszib.learningplatform.learningprogress.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,20 +11,20 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
-@Table( name = "enrollments")
+@Table( name = "learning_progress")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Progress {
+public class LearningProgress {
     @Id
     public Long id;
 
     public Long enrollmentId;
 
-    public Timestamp beginTimestamp;
+    public Timestamp startDate;
 
-    public Timestamp completionTimestamp;
+    public Timestamp endDate;
 
     public boolean status;
 }

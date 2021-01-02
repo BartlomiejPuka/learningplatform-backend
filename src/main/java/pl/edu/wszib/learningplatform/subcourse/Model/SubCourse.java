@@ -6,20 +6,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.edu.wszib.learningplatform.lesson.model.Lesson;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table( name = "subcourses")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubCourse {
 
-    @javax.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @OneToMany()
-    private Set<Lesson> lessons;
+    private String title;
+
+    @Lob
+    private String description;
+
+    private Long courseId;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lesson_id", updatable = false)
+    private List<Lesson> lessons;
 }

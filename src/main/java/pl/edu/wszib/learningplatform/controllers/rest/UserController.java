@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.components.UserComponent;
+import pl.edu.wszib.learningplatform.controllers.dto.CourseDto;
 import pl.edu.wszib.learningplatform.controllers.dto.EmailUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.PasswordUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.UserDto;
@@ -21,6 +22,11 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUsers());
+    }
+
+    @GetMapping(value = "/users/{userId}/courses")
+    public ResponseEntity<List<CourseDto>> getUserCourses(@PathVariable long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUserCourses(userId));
     }
 
     @PutMapping(value = "/users/{userId}/update-email", produces = "application/json")

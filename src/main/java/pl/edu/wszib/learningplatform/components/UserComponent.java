@@ -3,18 +3,22 @@ package pl.edu.wszib.learningplatform.components;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.edu.wszib.learningplatform.controllers.assemblers.CourseAssembler;
 import pl.edu.wszib.learningplatform.controllers.assemblers.UserAssembler;
+import pl.edu.wszib.learningplatform.controllers.dto.CourseDto;
 import pl.edu.wszib.learningplatform.controllers.dto.EmailUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.PasswordUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.dto.UserDto;
 import pl.edu.wszib.learningplatform.controllers.exceptions.BadRequestException;
 import pl.edu.wszib.learningplatform.controllers.exceptions.NotFoundException;
+import pl.edu.wszib.learningplatform.course.model.Course;
 import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.service.UserService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_COURSES_NOT_FOUND_MESSAGE_TEMPLATE;
 import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_NOT_FOUND_MESSAGE_TEMPLATE;
 
 @Component
@@ -22,11 +26,12 @@ import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_N
 public class UserComponent {
     private final UserService userService;
     private final UserAssembler userAssembler;
+    private final CourseAssembler courseAssembler;
     private final PasswordEncoder passwordEncoder;
 
     public List<UserDto> getUsers() {
         List<User> userModels = userService.findAll();
-        return userModels.stream().map(userAssembler::toDto).collect(Collectors.toList());
+        return userModels.stream().map(userAssembler::toDto).collect(toList());
     }
 
     public UserDto updateUserEmail(long userId, EmailUpdateDto email) {
@@ -64,5 +69,10 @@ public class UserComponent {
         if (email != null) {
             user.setEmail(email);
         }
+    }
+
+    public List<CourseDto> getUserCourses(long userId) {
+        List<Course> coursesModels = userService.findCoursesEnrolledByUserId(userId);
+        return coursesModels.stream().map(courseAssembler::toDto).collect(toList());
     }
 }

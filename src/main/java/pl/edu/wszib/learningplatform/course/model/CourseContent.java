@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @Setter
@@ -14,4 +15,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseContent {
+
+    @Id
+    public Long id;
 }

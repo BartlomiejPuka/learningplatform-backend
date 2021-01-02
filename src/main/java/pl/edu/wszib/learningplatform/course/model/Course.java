@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.edu.wszib.learningplatform.enrollment.Model.Enrollment;
 import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
-import pl.edu.wszib.learningplatform.user.model.User;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table( name = "courses")
@@ -22,10 +22,12 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @OneToMany()
-    private Set<SubCourse> subCourses;
+    private String title;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable
-    private Set<User> users;
+    @Lob
+    private String description;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_course_id", updatable = false)
+    private List<SubCourse> subCourses;
 }
