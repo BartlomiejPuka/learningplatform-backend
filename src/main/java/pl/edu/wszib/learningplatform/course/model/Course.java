@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
 import pl.edu.wszib.learningplatform.user.model.User;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
+    @OneToMany()
+    private Set<SubCourse> subCourses;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable

@@ -19,7 +19,9 @@ public class UserAssembler extends DtoAssembler<User, UserDto> {
         mapper.typeMap(User.class, UserDto.class).addMappings(m -> {
         });
 
-        mapper.typeMap(UserDto.class, User.class).addMappings(m -> m.skip(User::setId));
+        mapper.typeMap(UserDto.class, User.class).addMappings(m -> {
+            m.skip(User::setId);
+        });
     }
 
     @Override
