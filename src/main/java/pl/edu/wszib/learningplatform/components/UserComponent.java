@@ -34,7 +34,7 @@ public class UserComponent {
         return userModels.stream().map(userAssembler::toDto).collect(toList());
     }
 
-    public UserDto updateUserEmail(long userId, EmailUpdateDto email) {
+    public UserDto updateUserEmail(Long userId, EmailUpdateDto email) {
         User user = userService.findById(userId).orElseThrow(
                 () -> new NotFoundException(String.format(USER_NOT_FOUND_MESSAGE_TEMPLATE, userId)));
 
@@ -43,7 +43,7 @@ public class UserComponent {
         return userAssembler.toDto(userService.updateUser(user));
     }
 
-    public UserDto updateUserPassword(long userId, PasswordUpdateDto passwordUpdateDto) {
+    public UserDto updateUserPassword(Long userId, PasswordUpdateDto passwordUpdateDto) {
         User user = userService.findById(userId).orElseThrow(
                 () -> new NotFoundException(String.format(USER_NOT_FOUND_MESSAGE_TEMPLATE, userId)));
 
@@ -71,17 +71,17 @@ public class UserComponent {
         }
     }
 
-    public List<CourseDto> getUserCourses(long userId) {
+    public List<CourseDto> getUserCourses(Long userId) {
         List<Course> coursesModels = userService.findCoursesEnrolledByUserId(userId);
         return coursesModels.stream().map(courseAssembler::toDto).collect(toList());
     }
 
-    public List<SubCourseDto> getUserSubCourses(long userId) {
+    public List<SubCourseDto> getUserSubCourses(Long userId) {
         List<SubCourse> subCoursesModels = userService.findSubCoursesEnrolledByUserId(userId);
         return subCoursesModels.stream().map(subCourseAssembler::toDto).collect(toList());
     }
 
-    public List<UserDto> getAllUsersByCourse(long courseId){
+    public List<UserDto> getAllUsersByCourse(Long courseId){
         List<User> usersModels = userService.findAllByCourseId(courseId);
         return usersModels.stream().map(userAssembler::toDto).collect(toList());
     }

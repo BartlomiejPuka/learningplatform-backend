@@ -1,5 +1,6 @@
 package pl.edu.wszib.learningplatform.controllers.rest;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class LessonController {
 
     private final LessonComponent lessonComponent;
 
-    @GetMapping(value = "/subcourses/{subCourseId}/lessons")
+    @ApiOperation(value = "Get all lessons for particular subcourse")
+    @GetMapping(value = "/subcourses/{subCourseId}/lessons", produces = "application/json")
     public ResponseEntity<List<LessonDto>> getLessons(@PathVariable Long subCourseId){
         return ResponseEntity.status(HttpStatus.OK).body(lessonComponent.getLessonsBySubCourseId(subCourseId));
     }

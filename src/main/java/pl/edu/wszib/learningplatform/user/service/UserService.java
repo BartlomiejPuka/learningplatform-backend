@@ -21,13 +21,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findById(long userId) { return userRepository.findById(userId); }
+    public Optional<User> findById(Long userId) { return userRepository.findById(userId); }
 
     public User updateUser(User user) { return userRepository.save(user); }
 
-    public List<Course> findCoursesEnrolledByUserId(long userId) { return userRepository.findCoursesEnrolledById(userId); }
+    public List<Course> findCoursesEnrolledByUserId(Long userId) { return userRepository.findCoursesEnrolledById(userId); }
 
-    public List<SubCourse> findSubCoursesEnrolledByUserId(long userId) { return userRepository.findSubCoursesEnrolledById(userId);}
+    public List<SubCourse> findSubCoursesEnrolledByUserId(Long userId) { return userRepository.findSubCoursesEnrolledById(userId);}
 
-    public List<User> findAllByCourseId(long courseId) { return userRepository.findAllUsersByCourseId(courseId); }
+    public List<User> findAllByCourseId(Long courseId) { return userRepository.findAllUsersByCourseId(courseId); }
 }

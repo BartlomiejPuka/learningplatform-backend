@@ -1,5 +1,6 @@
 package pl.edu.wszib.learningplatform.controllers.rest;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,26 +17,31 @@ public class UserController {
     private final UserComponent userComponent;
 
 
-    @GetMapping("/users")
+    @ApiOperation(value = "Get all users")
+    @GetMapping(value = "/users", produces = "application/json")
     public ResponseEntity<List<UserDto>> getUsers(){
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUsers());
     }
 
-    @GetMapping(value = "/users/{userId}/courses")
-    public ResponseEntity<List<CourseDto>> getUserCourses(@PathVariable long userId){
+    @ApiOperation(value = "Get all courses enrolled by particular user")
+    @GetMapping(value = "/users/{userId}/courses", produces = "application/json")
+    public ResponseEntity<List<CourseDto>> getUserCourses(@PathVariable Long userId){
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUserCourses(userId));
     }
 
-    @GetMapping(value = "/users/{userId}/subcourses")
-    public ResponseEntity<List<SubCourseDto>> getUserSubCourses(@PathVariable long userId){
+    @ApiOperation(value = "Get all subcourses enrolled by particular user")
+    @GetMapping(value = "/users/{userId}/subcourses", produces = "application/json")
+    public ResponseEntity<List<SubCourseDto>> getUserSubCourses(@PathVariable Long userId){
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUserSubCourses(userId));
     }
 
+    @ApiOperation(value = "Update user email")
     @PutMapping(value = "/users/{userId}/update-email", produces = "application/json")
     public ResponseEntity<UserDto> updateUserEmail(@PathVariable long userId, @RequestBody EmailUpdateDto email){
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.updateUserEmail(userId, email));
     }
 
+    @ApiOperation(value = "Update user password")
     @PutMapping(value = "/users/{userId}/update-password", produces = "application/json")
     public ResponseEntity<UserDto> updateUserPassword(@PathVariable long userId, @RequestBody PasswordUpdateDto passwordUpdateDto) {
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.updateUserPassword(userId, passwordUpdateDto));

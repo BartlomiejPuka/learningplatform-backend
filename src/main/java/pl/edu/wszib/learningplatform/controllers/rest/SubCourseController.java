@@ -1,5 +1,6 @@
 package pl.edu.wszib.learningplatform.controllers.rest;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class SubCourseController {
 
     private final SubCourseComponent subCourseComponent;
 
-    @GetMapping(value = "/courses/{courseId}/subcourses")
+    @ApiOperation(value = "Get all subcourses of given course")
+    @GetMapping(value = "/courses/{courseId}/subcourses", produces = "application/json")
     public ResponseEntity<List<SubCourseDto>> getSubCourses(@PathVariable Long courseId){
         return ResponseEntity.status(HttpStatus.OK).body(subCourseComponent.GetSubCourses(courseId));
     }

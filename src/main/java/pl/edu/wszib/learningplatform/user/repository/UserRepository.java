@@ -18,18 +18,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT c FROM Enrollment e " +
             "JOIN e.course c " +
             "WHERE e.user.id = :uid")
-    List<Course> findCoursesEnrolledById(@Param("uid") long userId);
+    List<Course> findCoursesEnrolledById(@Param("uid") Long userId);
 
 
     @Query(value = "SELECT s FROM Enrollment e " +
             "JOIN e.course c " +
             "JOIN c.subCourses s " +
             "WHERE e.user.id = :uid")
-    List<SubCourse> findSubCoursesEnrolledById(@Param("uid") long userId);
+    List<SubCourse> findSubCoursesEnrolledById(@Param("uid") Long userId);
 
 
     @Query(value = "SELECT u FROM Enrollment e " +
             "JOIN e.user u " +
             "WHERE e.course.id = :cid")
-    List<User> findAllUsersByCourseId(@Param("cid") long courseId);
+    List<User> findAllUsersByCourseId(@Param("cid") Long courseId);
 }
