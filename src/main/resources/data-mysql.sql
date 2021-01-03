@@ -5,7 +5,8 @@ VALUES
 ;
 INSERT INTO courses(id,title, description)
 VALUES
-    (1,'Programista Javy I', 'Ten kurs jest przeznaczony dla osób początkujących, które nigdy wcześniej niczego nie programowały. Poznasz dzięki niej klasy, obiekty, metody, zmienne, typy danych, tablice, operatory warunkowe i pętle. Nauczysz sie podstaw kolekcji i programowania obiektowego, a także zaczniesz pracować w IntelliJ IDEA.')
+    (1,'Programista Javy I', 'Ten kurs jest przeznaczony dla osób początkujących, które nigdy wcześniej niczego nie programowały. Poznasz dzięki niej klasy, obiekty, metody, zmienne, typy danych, tablice, operatory warunkowe i pętle. Nauczysz sie podstaw kolekcji i programowania obiektowego, a także zaczniesz pracować w IntelliJ IDEA.'),
+    (2,'Programista Python I', '')
 ;
 INSERT INTO subcourses(course_id, title, description)
 VALUES
@@ -13,6 +14,10 @@ VALUES
     (1, 'Podstawy Java', 'Kurs przedstawiający podstawy Javy.'),
     (1, 'Kolekcje w Java', 'Kurs przedstawiający kolekcje Javy.'),
     (1, 'Wielowątkowość w Java', 'Kurs przedstawiajacy wielowątkowść w Javie.')
+;
+INSERT INTO courses_sub_courses(course_id, sub_courses_id)
+VALUES
+    (1,1), (1,2), (1,3), (1,4)
 ;
 INSERT INTO lessons(sub_course_id, title, description)
 VALUES

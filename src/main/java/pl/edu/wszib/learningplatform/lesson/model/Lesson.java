@@ -23,5 +23,5 @@ public class Lesson {
     @Lob
     private String description;
 
-    private Long subCourseId;
+    public Long subCourseId;
 }

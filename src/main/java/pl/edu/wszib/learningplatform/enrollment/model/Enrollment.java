@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.enrollment.Model;
+package pl.edu.wszib.learningplatform.enrollment.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,12 +23,9 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-//    public Long userId;
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", updatable = false)
     public User user;
-
-//    public Long CourseId;
 
     @CreationTimestamp
     public Timestamp enrollmentDate;

@@ -10,5 +10,7 @@ import java.util.List;
 public class SubCourseDto {
     private long id;
     private List<LessonDto> lessons;
+    private String title;
+    private String description;
 }
 

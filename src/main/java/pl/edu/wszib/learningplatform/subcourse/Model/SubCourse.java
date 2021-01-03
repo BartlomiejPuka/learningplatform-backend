@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.edu.wszib.learningplatform.course.model.Course;
 import pl.edu.wszib.learningplatform.lesson.model.Lesson;
 
 import javax.persistence.*;
@@ -26,7 +27,9 @@ public class SubCourse {
     @Lob
     private String description;
 
-    private Long courseId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", updatable = false)
+    public Course course;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "lesson_id", updatable = false)
