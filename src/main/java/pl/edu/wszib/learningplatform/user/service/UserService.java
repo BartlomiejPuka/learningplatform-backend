@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.course.model.Course;
-import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
+import pl.edu.wszib.learningplatform.subcourse.model.SubCourse;
 import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.repository.UserRepository;
 

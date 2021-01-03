@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.subcourse.Model;
+package pl.edu.wszib.learningplatform.subcourse.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

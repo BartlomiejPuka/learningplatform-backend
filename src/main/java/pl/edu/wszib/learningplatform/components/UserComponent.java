@@ -10,7 +10,7 @@ import pl.edu.wszib.learningplatform.controllers.dto.*;
 import pl.edu.wszib.learningplatform.controllers.exceptions.BadRequestException;
 import pl.edu.wszib.learningplatform.controllers.exceptions.NotFoundException;
 import pl.edu.wszib.learningplatform.course.model.Course;
-import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
+import pl.edu.wszib.learningplatform.subcourse.model.SubCourse;
 import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.service.UserService;
 

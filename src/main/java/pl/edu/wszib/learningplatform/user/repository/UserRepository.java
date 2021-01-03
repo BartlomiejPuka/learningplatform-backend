@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.learningplatform.course.model.Course;
-import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
+import pl.edu.wszib.learningplatform.subcourse.model.SubCourse;
 import pl.edu.wszib.learningplatform.user.model.User;
 
 import java.util.List;

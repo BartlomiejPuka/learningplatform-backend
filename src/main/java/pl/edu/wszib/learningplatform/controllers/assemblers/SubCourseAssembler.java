@@ -5,7 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.controllers.dto.SubCourseDto;
-import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
+import pl.edu.wszib.learningplatform.subcourse.model.SubCourse;
 
 @Service
 public class SubCourseAssembler extends DtoAssembler<SubCourse, SubCourseDto> {

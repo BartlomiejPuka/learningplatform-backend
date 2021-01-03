@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.edu.wszib.learningplatform.subcourse.Model.SubCourse;
+import pl.edu.wszib.learningplatform.subcourse.model.SubCourse;
 
 import javax.persistence.*;
 import java.util.List;
