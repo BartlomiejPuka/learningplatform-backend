@@ -2,6 +2,7 @@ package pl.edu.wszib.learningplatform.controllers.rest;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
+@Slf4j
 public class CourseController {
     private final UserComponent userComponent;
     private final CourseComponent courseComponent;
