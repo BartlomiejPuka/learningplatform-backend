@@ -46,6 +46,12 @@ public class JwtProvider {
         }
     }
 
+    /**
+     * Prywatny klucz JWT jest sprawdzany z publicznym kluczem. Ta metoda jest wykorzystywana przy
+     * JwtAuthenticationFilter.java
+     * @param jwt
+     * @return
+     */
     public boolean validateToken(String jwt){
         parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
         return true;

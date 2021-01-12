@@ -20,6 +20,11 @@ public class AuthController {
 
     private final AuthService authService;
 
+    /**
+     * Endpoint, który umożliwia zarejestrowanie sie użytkownika.
+     * @param registerRequest - obiekt dto, który zawiera informacje z formularza rejestracyjnego
+     * @return
+     */
     @ApiOperation(value = "Singup new user")
     @PostMapping(value = "/signup", produces = "application/json")
     public ResponseEntity<String> signup(@Valid @RequestBody RegisterRequest registerRequest){
