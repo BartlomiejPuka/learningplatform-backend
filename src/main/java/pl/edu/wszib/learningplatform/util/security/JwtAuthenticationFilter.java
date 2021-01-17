@@ -1,5 +1,6 @@
 package pl.edu.wszib.learningplatform.util.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtProvider jwtProvider;
-    @Qualifier("userDetailsServiceImpl")
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final JwtProvider jwtProvider;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

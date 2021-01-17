@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
+import pl.edu.wszib.learningplatform.authentication.dto.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
 import pl.edu.wszib.learningplatform.authentication.email.MailService;
@@ -22,6 +23,7 @@ import pl.edu.wszib.learningplatform.user.model.User;
 import pl.edu.wszib.learningplatform.user.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,6 +42,8 @@ public class AuthService {
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+
+    private final RefreshTokenService refreshTokenService;
 
     /**
      * (1) sprawdza czy użytkownik z podanym username istnieje w bazie danych juz w bazie danych
@@ -104,7 +108,7 @@ public class AuthService {
      * (2) UseDetailsServiceImpl sprawdza czy użytkownik o podanym loginie istnieje
      * (3) Jeśli istnieje to jest nastepnie sprawdzene czy jest enabled=1, w przeciwnym razie otrzyjmujemy AccessDenied
      * (4) Generujemy JWT
-     * (5) Zwracamy nazwe uzytkownika i JWT
+     * (5) Zwracamy nazwe uzytkownika, JWT, refresh token i czas wygasniecia tokena
      * @param loginRequest
      * @return
      */
@@ -113,6 +117,22 @@ public class AuthService {
                 loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String authenticationToken = jwtProvider.generateToken(authenticate);
-        return new AuthenticationResponse(authenticationToken, loginRequest.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(authenticationToken)
+                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(loginRequest.getUsername())
+                .build();
+    }
+
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(refreshTokenRequest.getUsername())
+                .build();
     }
 }
