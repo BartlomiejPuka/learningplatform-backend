@@ -17,5 +17,5 @@ import org.springframework.context.annotation.Configuration;
 public class PropertiesConstants {
 
     @Value("${springdoc.swagger-ui.url-pattern}")
-    private String swaggerUrlPattern;
+    private String[] swaggerUrlPattern;
 }
