@@ -1,0 +1,33 @@
+spring:
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/learning_platform?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      username: root
+      password: admin
+      initialize: true
+      initialization-mode: always
+      platform: mysql
+      data: classpath:data-mysql.sql
+  jpa:
+      hibernate.ddl-auto: create
+      properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      show-sql: true
+  mail:
+    host: smtp.mailtrap.io
+    port: 25
+    username: ebd9118ff80498
+    password: 8564227e949800
+    protocol: smtp
+
+server.error.include-message: always
+
+springdoc.swagger-ui:
+  url-pattern:
+      /v2/api-docs,
+      /configuration/ui,
+      /swagger-resources/**,
+      /configuration/security,
+      /swagger-ui.html,
+      /webjars/**
+
+jwt.expiration.time: 900000
