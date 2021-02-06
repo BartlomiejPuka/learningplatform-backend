@@ -1,16 +1,15 @@
 spring:
   datasource:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/learning_platform?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-      username: root
-      password: admin
-      initialize: true
+      url: jdbc:mysql://docker-mysql:3306/learningplatform?useSSL=false
+      username: bartek
+      password: bartek
       initialization-mode: always
       platform: mysql
+      driver-class-name: com.mysql.cj.jdbc.Driver
       data: classpath:data-mysql.sql
   jpa:
-      hibernate.ddl-auto: create
-      properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      hibernate.ddl-auto: update
+      database-platform: org.hibernate.dialect.MySQL8Dialect
       show-sql: true
   mail:
     host: smtp.mailtrap.io
@@ -18,8 +17,13 @@ spring:
     username: ebd9118ff80498
     password: 8564227e949800
     protocol: smtp
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog/changelog-master.xml
 
-server.error.include-message: always
+server:
+  error.include-message: always
+  port: 8090
 
 springdoc.swagger-ui:
   url-pattern:
