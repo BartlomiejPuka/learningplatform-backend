@@ -3,7 +3,7 @@ package pl.edu.wszib.learningplatform.authentication.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.edu.wszib.learningplatform.user.model.User;
+import pl.edu.wszib.learningplatform.user.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

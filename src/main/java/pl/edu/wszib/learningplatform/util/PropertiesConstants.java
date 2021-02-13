@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "const")
 @RequiredArgsConstructor
 public class PropertiesConstants {
 
-    @Value("${springdoc.swagger-ui.url-pattern}")
+    @Value("${const.springdoc.swagger-ui.url-pattern}")
     private String[] swaggerUrlPattern;
 }

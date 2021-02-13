@@ -19,8 +19,8 @@ import pl.edu.wszib.learningplatform.authentication.exception.UserAlreadyExistsE
 import pl.edu.wszib.learningplatform.authentication.model.VerificationToken;
 import pl.edu.wszib.learningplatform.authentication.repository.VerificationTokenRepository;
 import pl.edu.wszib.learningplatform.util.security.JwtProvider;
-import pl.edu.wszib.learningplatform.user.model.User;
-import pl.edu.wszib.learningplatform.user.repository.UserRepository;
+import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.user.UserRepository;
 
 import javax.transaction.Transactional;
 import java.time.Instant;

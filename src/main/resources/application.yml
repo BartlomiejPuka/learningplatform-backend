@@ -4,12 +4,12 @@ spring:
       url: jdbc:mysql://localhost:3306/learning_platform?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       username: root
       password: admin
-      initialize: true
-      initialization-mode: always
+#      initialize: true
+#      initialization-mode: always
       platform: mysql
-      data: classpath:data-mysql.sql
+#      data: classpath:data-mysql.sql
   jpa:
-      hibernate.ddl-auto: create
+      hibernate.ddl-auto: update
       properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       show-sql: true
   mail:
@@ -21,8 +21,9 @@ spring:
 
 server.error.include-message: always
 
-springdoc.swagger-ui:
-  url-pattern:
+const:
+  springdoc.swagger-ui:
+    url-pattern:
       /v2/api-docs,
       /configuration/ui,
       /swagger-resources/**,

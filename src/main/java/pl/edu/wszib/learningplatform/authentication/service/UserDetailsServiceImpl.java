@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.wszib.learningplatform.user.model.User;
-import pl.edu.wszib.learningplatform.user.repository.UserRepository;
+import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.user.UserRepository;
 
 import java.util.Collection;
 import java.util.Optional;
