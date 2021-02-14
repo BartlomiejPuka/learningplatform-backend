@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.authentication.exception;
+package pl.edu.wszib.learningplatform.util.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

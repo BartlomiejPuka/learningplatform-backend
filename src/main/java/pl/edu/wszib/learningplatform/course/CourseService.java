@@ -3,7 +3,7 @@ package pl.edu.wszib.learningplatform.course;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.learningplatform.controllers.exceptions.ConflictException;
+import pl.edu.wszib.learningplatform.util.exceptions.ConflictException;
 import pl.edu.wszib.learningplatform.user.UserRepository;
 
 import java.util.List;

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.learningplatform.controllers.dto.*;
 import pl.edu.wszib.learningplatform.course.CourseDto;
 
 import java.util.List;

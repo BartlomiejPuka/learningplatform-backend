@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentMapper;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentDto;
-import pl.edu.wszib.learningplatform.controllers.exceptions.NotFoundException;
+import pl.edu.wszib.learningplatform.util.exceptions.NotFoundException;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentEntity;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentService;
 import pl.edu.wszib.learningplatform.user.User;

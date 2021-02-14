@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.controllers.dto;
+package pl.edu.wszib.learningplatform.user;
 
 import lombok.Getter;
 import lombok.Setter;

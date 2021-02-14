@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.authentication.dto;
+package pl.edu.wszib.learningplatform.refreshtoken;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

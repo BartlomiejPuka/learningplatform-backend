@@ -1,18 +1,16 @@
-package pl.edu.wszib.learningplatform.controllers.rest;
+package pl.edu.wszib.learningplatform.authentication;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
-import pl.edu.wszib.learningplatform.authentication.dto.RefreshTokenRequest;
+import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.service.AuthService;
-import pl.edu.wszib.learningplatform.authentication.service.RefreshTokenService;
+import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
 
 import javax.validation.Valid;
 
