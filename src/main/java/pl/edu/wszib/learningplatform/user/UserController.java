@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.controllers.dto.*;
 import pl.edu.wszib.learningplatform.course.CourseDto;
-import pl.edu.wszib.learningplatform.subcourse.SubCourseDto;
 
 import java.util.List;
 
@@ -28,12 +27,6 @@ public class UserController {
     @GetMapping(value = "/users/{userId}/courses", produces = "application/json")
     public ResponseEntity<List<CourseDto>> getUserCourses(@PathVariable Long userId){
         return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUserCourses(userId));
-    }
-
-    @ApiOperation(value = "Get all subcourses enrolled by particular user")
-    @GetMapping(value = "/users/{userId}/subcourses", produces = "application/json")
-    public ResponseEntity<List<SubCourseDto>> getUserSubCourses(@PathVariable Long userId){
-        return ResponseEntity.status(HttpStatus.OK).body(userComponent.getUserSubCourses(userId));
     }
 
     @ApiOperation(value = "Update user email")

@@ -13,8 +13,6 @@ public class LessonComponent {
     private final LessonService lessonService;
     private final LessonMapper lessonAssembler;
 
-    public List<LessonDto> getLessonsBySubCourseId(Long subCourseId){
-        List<LessonEntity> lessonsModels = lessonService.getLessonsBySubCourseId(subCourseId);
-        return lessonsModels.stream().map(lessonAssembler::toDto).collect(toList());
-    }
+//    public List<LessonDto> getLessonsBySubCourseId(Long courseId){
+//    }
 }

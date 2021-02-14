@@ -1,8 +1,6 @@
 package pl.edu.wszib.learningplatform.lesson;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,8 +9,6 @@ import javax.persistence.*;
 @Table( name = "lessons")
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class LessonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +19,5 @@ public class LessonEntity {
     @Lob
     private String description;
 
-    public Long subCourseId;
+    public Long courseId;
 }

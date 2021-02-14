@@ -3,15 +3,13 @@ package pl.edu.wszib.learningplatform.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.edu.wszib.learningplatform.course.CourseMapper;
-import pl.edu.wszib.learningplatform.course.CourseDto;
-import pl.edu.wszib.learningplatform.subcourse.SubCourseMapper;
-import pl.edu.wszib.learningplatform.subcourse.SubCourseDto;
-import pl.edu.wszib.learningplatform.controllers.dto.*;
+import pl.edu.wszib.learningplatform.controllers.dto.EmailUpdateDto;
+import pl.edu.wszib.learningplatform.controllers.dto.PasswordUpdateDto;
 import pl.edu.wszib.learningplatform.controllers.exceptions.BadRequestException;
 import pl.edu.wszib.learningplatform.controllers.exceptions.NotFoundException;
+import pl.edu.wszib.learningplatform.course.CourseDto;
 import pl.edu.wszib.learningplatform.course.CourseEntity;
-import pl.edu.wszib.learningplatform.subcourse.SubCourseEntity;
+import pl.edu.wszib.learningplatform.course.CourseMapper;
 
 import java.util.List;
 
@@ -24,7 +22,6 @@ public class UserComponent {
     private final UserService userService;
     private final UserMapper userAssembler;
     private final CourseMapper courseAssembler;
-    private final SubCourseMapper subCourseAssembler;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -73,11 +70,6 @@ public class UserComponent {
     public List<CourseDto> getUserCourses(Long userId) {
         List<CourseEntity> coursesModels = userService.findCoursesEnrolledByUserId(userId);
         return coursesModels.stream().map(courseAssembler::toDto).collect(toList());
-    }
-
-    public List<SubCourseDto> getUserSubCourses(Long userId) {
-        List<SubCourseEntity> subCoursesModelEntities = userService.findSubCoursesEnrolledByUserId(userId);
-        return subCoursesModelEntities.stream().map(subCourseAssembler::toDto).collect(toList());
     }
 
     public List<UserDto> getAllUsersByCourse(Long courseId){

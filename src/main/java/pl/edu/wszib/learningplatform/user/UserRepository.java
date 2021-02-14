@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.edu.wszib.learningplatform.course.CourseEntity;
-import pl.edu.wszib.learningplatform.subcourse.SubCourseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "JOIN e.courseEntity c " +
             "WHERE e.user.id = :uid")
     List<CourseEntity> findCoursesEnrolledById(@Param("uid") Long userId);
-
-
-    @Query(value = "SELECT s FROM EnrollmentEntity e " +
-            "JOIN e.courseEntity c " +
-            "JOIN c.subCoursEntities s " +
-            "WHERE e.user.id = :uid")
-    List<SubCourseEntity> findSubCoursesEnrolledById(@Param("uid") Long userId);
 
 
     @Query(value = "SELECT u FROM EnrollmentEntity e " +

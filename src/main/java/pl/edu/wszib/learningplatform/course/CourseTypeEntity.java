@@ -8,22 +8,16 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "courses")
+@Table(name = "course_types")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseEntity {
+public class CourseTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    private String title;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CourseTypeEntity courseType;
-
-    @Lob
-    private String description;
+    public String name;
 }

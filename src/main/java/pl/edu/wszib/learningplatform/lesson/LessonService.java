@@ -9,6 +9,4 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LessonService {
     private final LessonRepository lessonRepository;
-
-    public List<LessonEntity> getLessonsBySubCourseId(Long subCourseId) { return lessonRepository.findAllBySubCourseId(subCourseId); }
 }
