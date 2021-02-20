@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 public class CourseMapper {
 
     public CourseDto toDto(CourseEntity courseEntity) {
-        CourseTypeEntity courseTypeEntity = courseEntity.getCourseType();
         return CourseDto.builder()
+                .id(courseEntity.getId())
                 .title(courseEntity.getTitle())
                 .subTitle(courseEntity.getSubTitle())
-                .courseType(courseTypeEntity != null ? courseTypeEntity.getName() : null)
                 .description(courseEntity.getDescription())
+                .image(courseEntity.getImage())
                 .build();
     }
 }

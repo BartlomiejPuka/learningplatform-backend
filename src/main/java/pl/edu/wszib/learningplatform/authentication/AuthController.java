@@ -2,6 +2,7 @@ package pl.edu.wszib.learningplatform.authentication;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
 import javax.validation.Valid;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -23,39 +24,64 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
     /**
-     * Endpoint, który umożliwia zarejestrowanie sie użytkownika.
+     * Umożliwia zarejestrowanie sie użytkownika.
      * @param registerRequest - obiekt dto, który zawiera informacje z formularza rejestracyjnego
      * @return
      */
     @ApiOperation(value = "Singup new user")
-    @PostMapping(value = "/signup", produces = "application/json")
-    public ResponseEntity<String> signup(@Valid @RequestBody RegisterRequest registerRequest){
+    @PostMapping(value = "/signup")
+    @ResponseStatus(HttpStatus.OK)
+    public String signup(@Valid @RequestBody RegisterRequest registerRequest){
         authService.signup(registerRequest);
-        return new ResponseEntity<String>("Registration successful!", HttpStatus.OK);
+        return "Registration successful!";
     }
 
+    /**
+     * Umożliwia zweryfikowanie użytkownika tzn. ustawienie flagi enabled = 1.
+     * Tylko użytkownicy, którzy są zweryfikowani mogą sie zalogować.
+     * @param token
+     * @return
+     */
     @ApiOperation(value = "Verify new user account")
-    @GetMapping(value = "/accountVerification/{token}", produces = "application/json")
-    public ResponseEntity verify(@PathVariable String token){
+    @GetMapping(value = "/accountVerification/{token}")
+    @ResponseStatus(HttpStatus.OK)
+    public String verify(@PathVariable String token){
         authService.verifyAccount(token);
-        return ResponseEntity.status(HttpStatus.OK).body("Account activated successfully!");
+        return "Account activated successfully!";
     }
 
+    /**
+     * Umożliwia zalogowanie sie użytkownika.
+     * @param loginRequest
+     * @return
+     */
     @ApiOperation(value = "Login user")
-    @PostMapping(value = "/login", produces = "application/json")
+    @PostMapping(value = "/login")
+    @ResponseStatus(HttpStatus.OK)
     public AuthenticationResponse login(@Valid @RequestBody LoginRequest loginRequest){
         return authService.login(loginRequest);
     }
 
-
+    /**
+     * Umożliwia uzyskanie refresh tokena, który przedłuża czas trwania sesji użytkownika.
+     * @param refreshTokenRequest
+     * @return
+     */
     @PostMapping("refresh/token")
+    @ResponseStatus(HttpStatus.OK)
     public AuthenticationResponse refreshTokens(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
         return authService.refreshToken(refreshTokenRequest);
     }
 
+    /**
+     * Umożliwia wylogowanie się użytkownika.
+     * @param refreshTokenRequest
+     * @return
+     */
     @PostMapping("/logout")
-    public ResponseEntity logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
+    @ResponseStatus(HttpStatus.OK)
+    public String logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
-        return ResponseEntity.status(HttpStatus.OK).body("Refresh token deleted successfully");
+        return "Refresh token deleted successfully";
     }
 }

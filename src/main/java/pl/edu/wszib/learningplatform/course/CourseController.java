@@ -19,6 +19,10 @@ public class CourseController {
 
     private final CourseService courseService;
 
+    /**
+     * Zwraca liste wszystkich kursów.
+     * @return List<CourseDto>
+     */
     @ApiOperation(value = "Get all courses")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

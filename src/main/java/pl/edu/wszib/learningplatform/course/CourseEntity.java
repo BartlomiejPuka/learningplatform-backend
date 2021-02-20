@@ -18,9 +18,9 @@ public class CourseEntity {
     private String title;
     private String subTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CourseTypeEntity courseType;
-
     @Lob
     private String description;
+
+    @Lob
+    private byte[] image;
 }

@@ -6,8 +6,9 @@ import lombok.Value;
 @Value
 @Builder
 public class CourseDto {
+    private Long id;
     private String title;
     private String subTitle;
     private String description;
-    private String courseType;
+    private byte[] image;
 }
