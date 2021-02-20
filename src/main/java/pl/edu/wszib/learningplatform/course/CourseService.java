@@ -8,7 +8,9 @@ import pl.edu.wszib.learningplatform.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_ALREADY_ENROLLED_TO_COURSE_TEMPLATE;
 
 @Service
@@ -17,17 +19,11 @@ import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_A
 public class CourseService {
 
     private final CourseRepository courseRepository;
-    private final UserRepository userRepository;
+    private final CourseMapper courseMapper;
 
-    public List<CourseEntity> findAll() { return courseRepository.findAll(); }
-
-    public Optional<CourseEntity> findById(long courseId) { return courseRepository.findById(courseId); }
-
-    public boolean IsUserNotEnrolledToCourse(long userId, long courseId){
-        List<CourseEntity> cours = userRepository.findCoursesEnrolledById(userId);
-        if(cours.stream().anyMatch(i->i.id.longValue() == courseId)){
-            throw new ConflictException(String.format(USER_ALREADY_ENROLLED_TO_COURSE_TEMPLATE, userId, courseId));
-        }
-        return true;
+    public List<CourseDto> getCourses(){
+        List<CourseEntity> courseEntities = courseRepository.findAll();
+        List<CourseDto> courses = courseEntities.stream().map(courseMapper::toDto).collect(toList());
+        return courses;
     }
 }

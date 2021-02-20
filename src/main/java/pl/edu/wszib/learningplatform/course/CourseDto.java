@@ -1,12 +1,13 @@
 package pl.edu.wszib.learningplatform.course;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Value;
 
-@Getter
-@Setter
+@Value
+@Builder
 public class CourseDto {
-    private long id;
     private String title;
+    private String subTitle;
     private String description;
+    private String courseType;
 }

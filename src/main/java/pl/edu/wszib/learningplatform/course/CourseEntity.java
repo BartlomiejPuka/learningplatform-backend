@@ -1,8 +1,6 @@
 package pl.edu.wszib.learningplatform.course;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,8 +9,6 @@ import javax.persistence.*;
 @Table(name = "courses")
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CourseEntity {
 
     @Id
@@ -20,6 +16,7 @@ public class CourseEntity {
     public Long id;
 
     private String title;
+    private String subTitle;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private CourseTypeEntity courseType;

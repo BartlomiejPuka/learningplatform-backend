@@ -1,8 +1,6 @@
 package pl.edu.wszib.learningplatform.course;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,13 +9,15 @@ import javax.persistence.*;
 @Table(name = "course_types")
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CourseTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
+
+    private byte[] image;
+
+
 }
