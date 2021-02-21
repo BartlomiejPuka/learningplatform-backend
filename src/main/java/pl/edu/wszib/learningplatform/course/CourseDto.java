@@ -1,9 +1,11 @@
 package pl.edu.wszib.learningplatform.course;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Getter;
+import lombok.Setter;
 
-@Value
+@Setter
+@Getter
 @Builder
 public class CourseDto {
     private Long id;
@@ -11,4 +13,5 @@ public class CourseDto {
     private String subTitle;
     private String description;
     private byte[] image;
+    private boolean isUserEnrolled;
 }
