@@ -12,4 +12,5 @@ public class EnrollmentDto {
     private Long userId;
     private Timestamp enrollmentDate;
     private Long courseId;
+    private EnrollmentType enrollmentType;
 }

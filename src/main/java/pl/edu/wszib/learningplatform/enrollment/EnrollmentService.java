@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.course.CourseEntity;
 import pl.edu.wszib.learningplatform.user.User;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -19,5 +21,9 @@ public class EnrollmentService {
 
     public boolean checkIfUserIsAssignedToCourse(CourseEntity courseEntity, User user){
         return enrollmentRepository.existsByCourseEntityAndUserAndEnrollmentType(courseEntity, user, EnrollmentType.COURSE);
+    }
+
+    public List<EnrollmentEntity> getUserEnrollments(Long userId, EnrollmentType enrollmentType){
+        return enrollmentRepository.findEnrollmentEntitiesByUserIdAndEnrollmentType(userId, enrollmentType);
     }
 }

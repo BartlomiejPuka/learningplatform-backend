@@ -4,10 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,14 @@ public class CourseController {
     public List<CourseDto> getCourses(){
         return courseService.getCourses();
     }
+
+    /**
+     * Zwraca liste wszystkich kursów wraz z informacja czy użytkownik jest juz na niego zapisany.
+     */
+
+    @GetMapping("user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserCourseDto> getCoursesByUserId(){ return courseService.getUserCourses(); }
 
 
 //    private final UserComponent userComponent;

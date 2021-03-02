@@ -4,13 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @Builder
-public class CourseDto {
+public class UserCourseDto {
     private Long id;
     private String title;
     private String subTitle;
     private String description;
     private byte[] image;
+    private boolean enrolled;
 }
