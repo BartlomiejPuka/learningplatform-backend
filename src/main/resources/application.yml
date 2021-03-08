@@ -18,6 +18,8 @@ spring:
     username: ebd9118ff80498
     password: 8564227e949800
     protocol: smtp
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
 server.error.include-message: always
 

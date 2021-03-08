@@ -15,15 +15,13 @@ public class EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepository;
 
-
     public EnrollmentEntity updateEnrollment(EnrollmentEntity enrollmentEntity) { return enrollmentRepository.save(enrollmentEntity); }
-
-
-    public boolean checkIfUserIsAssignedToCourse(CourseEntity courseEntity, User user){
-        return enrollmentRepository.existsByCourseEntityAndUserAndEnrollmentType(courseEntity, user, EnrollmentType.COURSE);
-    }
 
     public List<EnrollmentEntity> getUserEnrollments(Long userId, EnrollmentType enrollmentType){
         return enrollmentRepository.findEnrollmentEntitiesByUserIdAndEnrollmentType(userId, enrollmentType);
+    }
+
+    public void saveEnrollment(EnrollmentEntity enrollmentEntity){
+        enrollmentRepository.save(enrollmentEntity);
     }
 }

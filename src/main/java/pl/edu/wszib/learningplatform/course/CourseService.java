@@ -9,9 +9,14 @@ import pl.edu.wszib.learningplatform.enrollment.EnrollmentEntity;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentService;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentType;
 import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.user.UserService;
 import pl.edu.wszib.learningplatform.util.exceptions.ConflictException;
 import pl.edu.wszib.learningplatform.user.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +32,10 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
-
     private final UserRepository userRepository;
-
     private final EnrollmentService enrollmentService;
-
     private final UserCourseMapper userCourseMapper;
+    private final UserService userService;
 
     public List<CourseDto> getCourses(){
         List<CourseEntity> courseEntities = courseRepository.findAll();
@@ -40,22 +43,21 @@ public class CourseService {
     }
 
     public List<UserCourseDto> getUserCourses() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() ->
-                new RuntimeException("User not found"));
-        List<CourseEntity> courses = courseRepository.findAll();
-        List<EnrollmentEntity> enrollments = enrollmentService.getUserEnrollments(user.getId(), EnrollmentType.COURSE);
-        return mapToUserCourseDto(courses, enrollments);
+        User user = userService.getCurrentlyLoggedUser();
+        List<UserCourseDto> userCourses = courseRepository.getUserCourses(user.getId(), EnrollmentType.COURSE);
+        return userCourses;
     }
 
-    private List<UserCourseDto> mapToUserCourseDto(List<CourseEntity> courseEntities, List<EnrollmentEntity> enrollmentEntities){
-        List<UserCourseDto> userCourses = new ArrayList<>();
-        for(CourseEntity courseEntity: courseEntities){
-            UserCourseDto userCourse = userCourseMapper.toDto(courseEntity);
-            Optional<EnrollmentEntity> enrollmentEntity = enrollmentEntities.stream().filter(i->i.getCourseEntity().getId() == courseEntity.getId()).findFirst();
-            userCourse.setEnrolled(enrollmentEntity.isPresent());
-            userCourses.add(userCourse);
-        }
-        return userCourses;
+    public void enrollCourse(Long courseId) {
+        User user = userService.getCurrentlyLoggedUser();
+        EnrollmentEntity enrollmentEntity = new EnrollmentEntity();
+        CourseEntity courseEntity = courseRepository.findById(courseId).orElseThrow(
+                () -> new EntityNotFoundException(String.format("There is no course with id=%d", courseId))
+        );
+        enrollmentEntity.setUser(user);
+        enrollmentEntity.setEnrollmentDate(Timestamp.from(Instant.now()));
+        enrollmentEntity.setEnrollmentType(EnrollmentType.COURSE);
+        enrollmentEntity.setCourseEntity(courseEntity);
+        enrollmentService.saveEnrollment(enrollmentEntity);
     }
 }

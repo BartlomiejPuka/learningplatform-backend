@@ -2,6 +2,8 @@ package pl.edu.wszib.learningplatform.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.course.CourseEntity;
 
@@ -25,4 +27,10 @@ public class UserService {
     public List<CourseEntity> findCoursesEnrolledByUserId(Long userId) { return userRepository.findCoursesEnrolledById(userId); }
 
     public List<User> findAllByCourseId(Long courseId) { return userRepository.findAllUsersByCourseId(courseId); }
+
+    public User getCurrentlyLoggedUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() ->
+                new RuntimeException("User not found"));
+    }
 }

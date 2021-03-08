@@ -8,9 +8,9 @@ public class UserCourseMapper {
     public UserCourseDto toDto(CourseEntity courseEntity){
         return UserCourseDto.builder()
                 .id(courseEntity.getId())
-                .title(courseEntity.getTitle())
-                .subTitle(courseEntity.getSubTitle())
-                .description(courseEntity.getDescription())
+//                .title(courseEntity.getTitle())
+//                .subTitle(courseEntity.getSubTitle())
+//                .description(courseEntity.getDescription())
                 .image(courseEntity.getImage())
                 .build();
     }
