@@ -1,16 +1,13 @@
 package pl.edu.wszib.learningplatform.authentication;
 
-import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.service.AuthService;
+import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
 
 import javax.validation.Valid;
@@ -28,7 +25,6 @@ public class AuthController {
      * @param registerRequest - obiekt dto, który zawiera informacje z formularza rejestracyjnego
      * @return
      */
-    @ApiOperation(value = "Singup new user")
     @PostMapping(value = "/signup")
     @ResponseStatus(HttpStatus.OK)
     public String signup(@Valid @RequestBody RegisterRequest registerRequest){
@@ -42,7 +38,6 @@ public class AuthController {
      * @param token
      * @return
      */
-    @ApiOperation(value = "Verify new user account")
     @GetMapping(value = "/accountVerification/{token}")
     @ResponseStatus(HttpStatus.OK)
     public String verify(@PathVariable String token){
@@ -55,7 +50,6 @@ public class AuthController {
      * @param loginRequest
      * @return
      */
-    @ApiOperation(value = "Login user")
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.OK)
     public AuthenticationResponse login(@Valid @RequestBody LoginRequest loginRequest){

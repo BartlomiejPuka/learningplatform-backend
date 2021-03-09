@@ -43,9 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final PropertiesConstants propertiesConstants;
 
-
-
-
     /**
      * Ta metoda umozliwia skonfigurowanie zapytan. Niektóre zapytania mogą potrzebować
      * uwierzytelnienia i tutaj możemy je oznaczyć. Dodatkowo możemy wyłączyć csrf
@@ -55,19 +52,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable();
-        httpSecurity.authorizeRequests()
-                    .antMatchers("/api/auth/**").permitAll()
-                    .antMatchers("/api/**").permitAll()
-                    .antMatchers(propertiesConstants.getSwaggerUrlPattern()).permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.csrf().disable()
+                .authorizeRequests().antMatchers("/**").permitAll();
+//        httpSecurity.authorizeRequests()
+//                    .antMatchers("/api/auth/**").permitAll()
+//                    .antMatchers("/api/**").permitAll()
+//                    .antMatchers(propertiesConstants.getSwaggerUrlPattern()).permitAll()
+//                    .anyRequest().authenticated()
+//                .and()
+//                    .exceptionHandling()
+//                    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//                .and()
+//                    .sessionManagement()
+//                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 //    @Bean
