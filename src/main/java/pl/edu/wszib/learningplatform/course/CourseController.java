@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -46,7 +47,9 @@ public class CourseController {
                            array = @ArraySchema(schema = @Schema(implementation = UserCourseDto.class))
                     )})
             })
-    public List<UserCourseDto> getCoursesByUserId(){ return courseService.getUserCourses(); }
+    public List<UserCourseDto> getCoursesByUserId(Principal principal){
+        return courseService.getUserCourses(principal.getName());
+    }
 
 
     @PostMapping("{id}/enroll")
@@ -54,8 +57,8 @@ public class CourseController {
     @Operation(summary = "Enroll course for logged user.",
             description = "Enroll selected course for currently logged user.",
             responses = {@ApiResponse(responseCode = "200")})
-    public void enrollCourse(@PathVariable("id") Long courseId){
-        courseService.enrollCourse(courseId);
+    public void enrollCourse(@PathVariable("id") Long courseId, Principal principal){
+        courseService.enrollCourse(courseId, principal.getName());
     }
 
 

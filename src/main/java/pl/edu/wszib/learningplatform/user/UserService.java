@@ -22,15 +22,12 @@ public class UserService {
 
     public Optional<User> findById(Long userId) { return userRepository.findById(userId); }
 
+    public Optional<User> findByUsername(String username) {return userRepository.findByUsername(username); }
+
     public User updateUser(User user) { return userRepository.save(user); }
 
     public List<CourseEntity> findCoursesEnrolledByUserId(Long userId) { return userRepository.findCoursesEnrolledById(userId); }
 
     public List<User> findAllByCourseId(Long courseId) { return userRepository.findAllUsersByCourseId(courseId); }
 
-    public User getCurrentlyLoggedUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() ->
-                new RuntimeException("User not found"));
-    }
 }

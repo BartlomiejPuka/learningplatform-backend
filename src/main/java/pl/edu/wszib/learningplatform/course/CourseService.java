@@ -42,14 +42,18 @@ public class CourseService {
         return courseEntities.stream().map(courseMapper::toDto).collect(toList());
     }
 
-    public List<UserCourseDto> getUserCourses() {
-        User user = userService.getCurrentlyLoggedUser();
+    public List<UserCourseDto> getUserCourses(String username) {
+        User user = userService.findByUsername(username).orElseThrow(
+                () -> new EntityNotFoundException(String.format("%s has not been found!",username))
+        );
         List<UserCourseDto> userCourses = courseRepository.getUserCourses(user.getId(), EnrollmentType.COURSE);
         return userCourses;
     }
 
-    public void enrollCourse(Long courseId) {
-        User user = userService.getCurrentlyLoggedUser();
+    public void enrollCourse(Long courseId, String username) {
+        User user = userService.findByUsername(username).orElseThrow(
+                () -> new EntityNotFoundException(String.format("%s has not been found!",username))
+        );
         EnrollmentEntity enrollmentEntity = new EnrollmentEntity();
         CourseEntity courseEntity = courseRepository.findById(courseId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("There is no course with id=%d", courseId))
