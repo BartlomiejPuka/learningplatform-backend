@@ -29,10 +29,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userOptional
                 .orElseThrow(() -> new UsernameNotFoundException("No user Found with username : " + username));
 
-        return new org.springframework.security
-                .core.userdetails.User(user.getUsername(), user.getPassword(),
-                user.isEnabled(), true, true,
-                true, getAuthorities("USER"));
+        return new CustomUser(
+                user.getUsername(),
+                user.getPassword(),
+                user.isEnabled(),
+                true,
+                true,
+                true,
+                getAuthorities("USER"),
+                user.getId());
+//        return new org.springframework.security
+//                .core.userdetails.User(user.getUsername(), user.getPassword(),
+//                user.isEnabled(), true, true,
+//                true, getAuthorities("USER"));
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(String role){
