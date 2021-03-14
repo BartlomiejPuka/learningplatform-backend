@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.lesson;
+package pl.edu.wszib.learningplatform.course.lesson;
 
 
 import lombok.Getter;

@@ -14,13 +14,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
     @Query(value = "SELECT c FROM EnrollmentEntity e " +
-            "JOIN e.courseEntity c " +
+            "JOIN e.course c " +
             "WHERE e.user.id = :uid")
     List<CourseEntity> findCoursesEnrolledById(@Param("uid") Long userId);
 
 
     @Query(value = "SELECT u FROM EnrollmentEntity e " +
             "JOIN e.user u " +
-            "WHERE e.courseEntity.id = :cid")
+            "WHERE e.course.id = :cid")
     List<User> findAllUsersByCourseId(@Param("cid") Long courseId);
 }

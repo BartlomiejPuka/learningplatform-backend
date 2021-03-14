@@ -1,5 +1,6 @@
 package pl.edu.wszib.learningplatform.course;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 public class CourseEntity {
 
     @Id
+    @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 

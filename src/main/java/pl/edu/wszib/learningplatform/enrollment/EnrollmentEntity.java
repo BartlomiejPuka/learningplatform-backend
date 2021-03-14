@@ -32,7 +32,7 @@ public class EnrollmentEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", updatable = false)
-    private CourseEntity courseEntity;
+    private CourseEntity course;
 
     @Enumerated(EnumType.STRING)
     private EnrollmentType enrollmentType;

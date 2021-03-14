@@ -19,7 +19,7 @@ import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
 import pl.edu.wszib.learningplatform.util.exceptions.UserAlreadyExistsException;
 import pl.edu.wszib.learningplatform.authentication.model.VerificationToken;
 import pl.edu.wszib.learningplatform.authentication.repository.VerificationTokenRepository;
-import pl.edu.wszib.learningplatform.util.security.JwtProvider;
+import pl.edu.wszib.learningplatform.security.JwtProvider;
 import pl.edu.wszib.learningplatform.user.User;
 import pl.edu.wszib.learningplatform.user.UserRepository;
 

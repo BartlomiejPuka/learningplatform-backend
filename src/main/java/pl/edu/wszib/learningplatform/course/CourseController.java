@@ -13,7 +13,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController

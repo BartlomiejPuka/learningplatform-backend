@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.util.security;
+package pl.edu.wszib.learningplatform.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.util.security;
+package pl.edu.wszib.learningplatform.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

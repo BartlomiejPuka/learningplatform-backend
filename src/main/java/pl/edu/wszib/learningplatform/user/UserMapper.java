@@ -1,32 +1,25 @@
 package pl.edu.wszib.learningplatform.user;
 
-import org.jetbrains.annotations.NotNull;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.learningplatform.base.DtoMapper;
 
 @Service
-public class UserMapper extends DtoMapper<User, UserDto> {
+public class UserMapper {
 
-    private final ModelMapper mapper;
-
-    @Autowired
-    public UserMapper(){
-        mapper = new ModelMapper();
-
-        mapper.typeMap(User.class, UserDto.class).addMappings(m -> {
-        });
-
-        mapper.typeMap(UserDto.class, User.class).addMappings(m -> {
-            m.skip(User::setId);
-        });
+    public User toEntity(UserDto userDto) {
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        return user;
     }
 
-    @Override
-    public User toEntity(UserDto userDto) { return mapper.map(userDto, User.class); }
-
-    @NotNull
-    @Override
-    public UserDto toDto(User user) { return mapper.map(user, UserDto.class); }
+    public UserDto toDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        return userDto;
+    }
 }

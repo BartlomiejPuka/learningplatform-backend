@@ -10,9 +10,8 @@ import java.util.List;
 @Repository
 public interface EnrollmentRepository extends JpaRepository<EnrollmentEntity, Long> {
 
-
-    boolean existsByCourseEntityAndUserAndEnrollmentType(CourseEntity courseEntity, User user, EnrollmentType enrollmentType);
-
     List<EnrollmentEntity> findEnrollmentEntitiesByUserIdAndEnrollmentType(Long userId, EnrollmentType enrollmentType);
+
+    boolean existsByCourseIdAndUserIdAndEnrollmentType(Long courseId, Long UserId, EnrollmentType enrollmentType);
 
 }

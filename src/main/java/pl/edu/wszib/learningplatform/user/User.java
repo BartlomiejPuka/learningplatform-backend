@@ -1,9 +1,6 @@
 package pl.edu.wszib.learningplatform.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,8 +15,8 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    // TODO: idea, change Long to UUID.
     @Id
+    @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 

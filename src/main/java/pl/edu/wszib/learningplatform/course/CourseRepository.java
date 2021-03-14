@@ -16,6 +16,6 @@ public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
             " case when e.id is null then false else true end) " +
             " from CourseEntity c " +
             "LEFT JOIN EnrollmentEntity e " +
-            "ON c.id = e.courseEntity.id and e.user.id = :userId and e.enrollmentType = :enrollmentType ")
+            "ON c.id = e.course.id and e.user.id = :userId and e.enrollmentType = :enrollmentType ")
     List<UserCourseDto> getUserCourses(@Param("userId") Long userId, @Param("enrollmentType") EnrollmentType enrollmentType);
 }

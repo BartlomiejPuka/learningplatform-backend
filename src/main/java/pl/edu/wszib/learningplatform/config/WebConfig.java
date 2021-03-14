@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.util.authentication.config;
+package pl.edu.wszib.learningplatform.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

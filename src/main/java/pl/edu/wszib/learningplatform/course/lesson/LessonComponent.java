@@ -1,11 +1,7 @@
-package pl.edu.wszib.learningplatform.lesson;
+package pl.edu.wszib.learningplatform.course.lesson;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor

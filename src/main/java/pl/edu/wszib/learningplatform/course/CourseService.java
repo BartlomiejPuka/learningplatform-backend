@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentEntity;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentService;
 import pl.edu.wszib.learningplatform.enrollment.EnrollmentType;
@@ -27,15 +28,13 @@ import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_A
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
+@Validated
 public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
     private final UserRepository userRepository;
     private final EnrollmentService enrollmentService;
-    private final UserCourseMapper userCourseMapper;
-    private final UserService userService;
 
     public List<CourseDto> getCourses(){
         List<CourseEntity> courseEntities = courseRepository.findAll();
@@ -47,16 +46,14 @@ public class CourseService {
         return userCourses;
     }
 
-    public void enrollCourse(Long courseId, Long userId) {
-        EnrollmentEntity enrollmentEntity = new EnrollmentEntity();
-        CourseEntity courseEntity = courseRepository.findById(courseId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("There is no course with id=%d", courseId))
-        );
+    public void enrollCourse(@CourseExistsById Long courseId, Long userId) {
+        CourseEntity courseEntity = courseRepository.getOne(courseId);
         User user = userRepository.getOne(userId);
+        EnrollmentEntity enrollmentEntity = new EnrollmentEntity();
         enrollmentEntity.setUser(user);
         enrollmentEntity.setEnrollmentDate(Timestamp.from(Instant.now()));
         enrollmentEntity.setEnrollmentType(EnrollmentType.COURSE);
-        enrollmentEntity.setCourseEntity(courseEntity);
+        enrollmentEntity.setCourse(courseEntity);
         enrollmentService.saveEnrollment(enrollmentEntity);
     }
 }
