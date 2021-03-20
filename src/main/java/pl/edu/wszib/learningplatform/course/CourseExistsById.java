@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CourseExistsById {
-    String message() default "Course with id={validatedValue} does not exists.";
+    String message() default "Course with id=${validatedValue} does not exists.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

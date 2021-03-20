@@ -17,4 +17,14 @@ public class ModuleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
+    private String title;
+
+    @Lob
+    private String description;
+
+    @Lob
+    private byte[] image;
+
+    private Long courseId;
+
 }

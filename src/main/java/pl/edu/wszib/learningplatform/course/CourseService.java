@@ -32,28 +32,13 @@ import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_A
 public class CourseService {
 
     private final CourseRepository courseRepository;
-    private final CourseMapper courseMapper;
-    private final UserRepository userRepository;
-    private final EnrollmentService enrollmentService;
 
     public List<CourseDto> getCourses(){
         List<CourseEntity> courseEntities = courseRepository.findAll();
-        return courseEntities.stream().map(courseMapper::toDto).collect(toList());
+        return courseEntities.stream().map(CourseMapper::toDto).collect(toList());
     }
 
     public List<UserCourseDto> getUserCourses(Long userId) {
-        List<UserCourseDto> userCourses = courseRepository.getUserCourses(userId, EnrollmentType.COURSE);
-        return userCourses;
-    }
-
-    public void enrollCourse(@CourseExistsById Long courseId, Long userId) {
-        CourseEntity courseEntity = courseRepository.getOne(courseId);
-        User user = userRepository.getOne(userId);
-        EnrollmentEntity enrollmentEntity = new EnrollmentEntity();
-        enrollmentEntity.setUser(user);
-        enrollmentEntity.setEnrollmentDate(Timestamp.from(Instant.now()));
-        enrollmentEntity.setEnrollmentType(EnrollmentType.COURSE);
-        enrollmentEntity.setCourse(courseEntity);
-        enrollmentService.saveEnrollment(enrollmentEntity);
+        return courseRepository.getUserCourses(userId, EnrollmentType.COURSE);
     }
 }

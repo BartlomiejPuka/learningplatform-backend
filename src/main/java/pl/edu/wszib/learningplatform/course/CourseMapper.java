@@ -1,8 +1,8 @@
 package pl.edu.wszib.learningplatform.course;
 
-import org.springframework.stereotype.Service;
+import lombok.experimental.UtilityClass;
 
-@Service
+@UtilityClass
 public class CourseMapper {
 
     public CourseDto toDto(CourseEntity courseEntity) {

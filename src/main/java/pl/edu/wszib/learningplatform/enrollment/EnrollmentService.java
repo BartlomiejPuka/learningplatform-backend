@@ -21,11 +21,6 @@ public class EnrollmentService {
         return enrollmentRepository.findEnrollmentEntitiesByUserIdAndEnrollmentType(userId, enrollmentType);
     }
 
-    public void saveEnrollment(EnrollmentEntity enrollmentEntity){
-        enrollmentRepository.save(enrollmentEntity);
-    }
-
-
     private boolean checkIfUserAlreadyEnrolled(Long courseId, Long userId, EnrollmentType enrollmentType) {
         return enrollmentRepository.existsByCourseIdAndUserIdAndEnrollmentType(courseId, userId, enrollmentType);
     }

@@ -23,6 +23,7 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
+    private final CourseFacade courseFacade;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -58,6 +59,6 @@ public class CourseController {
             description = "Enroll selected course for currently logged user.",
             responses = {@ApiResponse(responseCode = "200")})
     public void enrollCourse(@PathVariable("id") Long courseId, @AuthenticationPrincipal CustomUser user){
-        courseService.enrollCourse(courseId, user.getId());
+        courseFacade.enrollCourse(courseId, user.getId());
     }
 }
