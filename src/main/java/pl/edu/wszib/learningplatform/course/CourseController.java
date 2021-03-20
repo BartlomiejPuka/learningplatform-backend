@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/courses")
+@RequestMapping("/api/course")
 @Slf4j
 @Tag(name = "Course Tag", description = "Rest endpoints for courses")
 public class CourseController {

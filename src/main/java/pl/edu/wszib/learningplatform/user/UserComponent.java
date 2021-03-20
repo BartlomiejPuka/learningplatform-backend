@@ -19,7 +19,6 @@ import static pl.edu.wszib.learningplatform.util.message.MessageTemplates.USER_N
 public class UserComponent {
     private final UserService userService;
     private final UserMapper userAssembler;
-    private final CourseMapper courseAssembler;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -63,15 +62,5 @@ public class UserComponent {
         if (email != null) {
             user.setEmail(email);
         }
-    }
-
-    public List<CourseDto> getUserCourses(Long userId) {
-        List<CourseEntity> coursesModels = userService.findCoursesEnrolledByUserId(userId);
-        return coursesModels.stream().map(courseAssembler::toDto).collect(toList());
-    }
-
-    public List<UserDto> getAllUsersByCourse(Long courseId){
-        List<User> usersModels = userService.findAllByCourseId(courseId);
-        return usersModels.stream().map(userAssembler::toDto).collect(toList());
     }
 }

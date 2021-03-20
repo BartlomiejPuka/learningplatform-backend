@@ -8,7 +8,7 @@ import pl.edu.wszib.learningplatform.config.ObjectMapperConfiguration;
 
 @Component
 @RequiredArgsConstructor
-public class TestObjectMapper {
+class TestObjectMapper {
 
     private final ObjectMapper objectMapper;
 
@@ -19,4 +19,5 @@ public class TestObjectMapper {
     String asJson(Object value) throws JsonProcessingException {
         return objectMapper.writeValueAsString(value);
     }
+
 }

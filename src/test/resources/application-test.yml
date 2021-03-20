@@ -4,6 +4,7 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
-  test:
-    database:
-      replace: NONE
+
+security.ignored: /**
+security.basic.enable: false
+spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
