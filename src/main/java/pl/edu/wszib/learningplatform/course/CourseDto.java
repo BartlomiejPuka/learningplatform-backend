@@ -4,13 +4,17 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 @Builder
 public class CourseDto {
     private Long id;
     private String title;
-    private String subTitle;
     private String description;
-    private byte[] image;
+    private String author;
+    private BigDecimal price;
+    private String category;
+
 }

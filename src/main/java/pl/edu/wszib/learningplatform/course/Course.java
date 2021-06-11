@@ -5,24 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "courses")
 @Setter
 @Getter
-public class CourseEntity {
+public class Course {
 
     @Id
     @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     private String title;
-    private String subTitle;
 
-    @Lob
-    private String description;
+    private BigDecimal price;
 
-    @Lob
-    private byte[] image;
+    @OneToOne
+    private CourseCategory category;
+
+    @Embedded
+    private CourseDetails details;
+
+
 }

@@ -11,12 +11,19 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.edu.wszib.learningplatform.authentication.service.UserDetailsServiceImpl;
 import pl.edu.wszib.learningplatform.util.PropertiesConstants;
 import pl.edu.wszib.learningplatform.security.JwtAuthenticationEntryPoint;
 import pl.edu.wszib.learningplatform.security.JwtAuthenticationFilter;
+
+import java.util.List;
 
 
 /**
@@ -43,8 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/**").permitAll();
+        httpSecurity.csrf().disable();
 //        httpSecurity.authorizeRequests()
 //                    .antMatchers("/api/auth/**").permitAll()
 //                    .antMatchers("/api/**").permitAll()
@@ -58,22 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.set
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setExposedHeaders(List.of("Authorization"));
-//        configuration.setAllowCredentials(true);
-//        configuration.setMaxAge(3600L);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
 
     /**
      * Musimy wybrać implementacje AuthenticationManagera

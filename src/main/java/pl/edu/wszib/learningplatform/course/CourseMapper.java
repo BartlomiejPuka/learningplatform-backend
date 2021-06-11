@@ -5,13 +5,14 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CourseMapper {
 
-    public CourseDto toDto(CourseEntity courseEntity) {
+    public CourseDto toDto(Course course) {
         return CourseDto.builder()
-                .id(courseEntity.getId())
-                .title(courseEntity.getTitle())
-                .subTitle(courseEntity.getSubTitle())
-                .description(courseEntity.getDescription())
-                .image(courseEntity.getImage())
+                .id(course.getId())
+                .title(course.getTitle())
+                .author(course.getDetails().getAuthor())
+                .description(course.getDetails().getDescription())
+                .price(course.getPrice())
+                .category(course.getCategory().getCategory())
                 .build();
     }
 }

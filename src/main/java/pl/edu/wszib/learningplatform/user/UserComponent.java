@@ -5,9 +5,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.edu.wszib.learningplatform.util.exceptions.BadRequestException;
 import pl.edu.wszib.learningplatform.util.exceptions.NotFoundException;
-import pl.edu.wszib.learningplatform.course.CourseDto;
-import pl.edu.wszib.learningplatform.course.CourseEntity;
-import pl.edu.wszib.learningplatform.course.CourseMapper;
 
 import java.util.List;
 
