@@ -3,9 +3,10 @@ package pl.edu.wszib.learningplatform.course;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.wszib.learningplatform.course.lesson.LessonDto;
+import pl.edu.wszib.learningplatform.course.task.TaskDto;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,19 @@ public class CourseController {
     @ResponseStatus(HttpStatus.OK)
     public Map<String, List<CourseDto>> getCategorizedCourses() {
         return courseService.getCategorizedCourses();
+    }
+
+
+    @GetMapping("/{id}/lessons")
+    @ResponseStatus(HttpStatus.OK)
+    public List<LessonDto> getCourseLessons(@PathVariable("id") Long courseId){
+        return courseService.getCourseLessons(courseId);
+    }
+
+    @GetMapping("/{id}/tasks")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TaskDto> getCourseTasks(@PathVariable("id") Long courseId){
+        return courseService.getCourseTasks(courseId);
     }
 
 }

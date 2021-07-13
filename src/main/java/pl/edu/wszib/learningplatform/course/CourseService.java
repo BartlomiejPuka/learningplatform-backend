@@ -4,7 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import pl.edu.wszib.learningplatform.course.lesson.LessonDto;
+import pl.edu.wszib.learningplatform.course.lesson.LessonMapper;
+import pl.edu.wszib.learningplatform.course.task.TaskDto;
+import pl.edu.wszib.learningplatform.course.task.TaskMapper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +34,15 @@ public class CourseService {
         return courseEntities.stream()
                 .map(CourseMapper::toDto)
                 .collect(groupingBy(CourseDto::getCategory));
+    }
+
+    public List<LessonDto> getCourseLessons(Long courseId) {
+        Course course = courseRepository.getOne(courseId);
+        return course.getLessons().stream().map(LessonMapper::toDto).collect(toList());
+    }
+
+    public List<TaskDto> getCourseTasks(Long courseId) {
+        Course course = courseRepository.getOne(courseId);
+        return course.getTasks().stream().map(TaskMapper::toDto).collect(toList());
     }
 }

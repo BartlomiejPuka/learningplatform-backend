@@ -12,10 +12,8 @@ public class CourseSpecifications {
         }
         return (root, query, criteriaBuilder) -> {
             return criteriaBuilder.like(criteriaBuilder.lower(root.get(Course_.TITLE)), "%" + title.toLowerCase() + "%");
-            //            return criteriaBuilder.like(criteriaBuilder.lower(root.get(Course_.TITLE), "%" + title + "%"));
         };
     }
-
 
     public static Specification<Course> createSpecification(CourseCriteria courseCriteria){
         return likeTitle(courseCriteria.getTitle());

@@ -26,17 +26,4 @@ class CourseEntityControllerSpec extends BaseIT {
                 response.contentType == 'application/json'
             }
     }
-
-    def "should not be able to enroll course that does not exists" () {
-        given:
-            List<User> users = userRepository.findAll();
-            Long id = -99
-        when:
-            def response = performPost("/api/course/${id}/enroll", null)
-        then:
-            verifyAll {
-                response.status == BAD_REQUEST.value()
-                response.contentType == 'application/json'
-            }
-    }
 }
