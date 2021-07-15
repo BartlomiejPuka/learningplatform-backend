@@ -33,7 +33,6 @@ public class CartController {
         return cartService.removeCartItem(cartItemId, customUser.getId());
     }
 
-
     @PostMapping("/submit")
     @ResponseStatus(HttpStatus.OK)
     public boolean submitCart(@AuthenticationPrincipal CustomUser customUser){

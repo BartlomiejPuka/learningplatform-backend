@@ -12,6 +12,7 @@ import pl.edu.wszib.learningplatform.user.UserRepository;
 import pl.edu.wszib.learningplatform.usercourse.UserCourse;
 import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,7 @@ public class CartService {
         return cartItems.stream().map(CartItemMapper::toDto).collect(toList());
     }
 
-    // TODO: Make validator for addCartItemDto @NotInCart
-    public CartItemDto addCartItem(AddCartItemDto addCartItemDto, Long userId) {
+    public CartItemDto addCartItem(@Valid AddCartItemDto addCartItemDto, Long userId) {
         User user = userRepository.getOne(userId);
         Course course = courseRepository.getOne(addCartItemDto.getCourseId());
         Cart cart = getUserCart(user);
@@ -85,15 +85,16 @@ public class CartService {
     }
 
     private void createUserCourses(Cart cart) {
-        User user = cart.getUser();
-        LocalDate now = LocalDate.now();
         List<CartItem> cartItems = cart.getCartItemList();
-        for(CartItem cartItem : cartItems){
-            UserCourse userCourse = new UserCourse();
-            userCourse.setCourse(cartItem.getCourse());
-            userCourse.setUser(user);
-            userCourse.setPurchasedDate(now);
-            userCourseRepository.save(userCourse);
-        }
+        cartItems.stream()
+                .map(this::createUserCourse)
+                .forEach(userCourseRepository::save);
+    }
+
+    private UserCourse createUserCourse(CartItem cartItem){
+        UserCourse userCourse = new UserCourse();
+        Course course = cartItem.getCourse();
+        userCourse.setCourse(course);
+        return userCourse;
     }
 }

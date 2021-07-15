@@ -1,24 +1,21 @@
-package pl.edu.wszib.learningplatform.cart;
+package pl.edu.wszib.learningplatform.usercourse.lessonprogress;
+
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import pl.edu.wszib.learningplatform.course.Course;
-import pl.edu.wszib.learningplatform.user.User;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "lesson_progress")
 @Setter
 @Getter
-public class CartItem {
+public class LessonProgress {
+
     @Id
     @Setter(AccessLevel.NONE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    private Course course;
 
 }
