@@ -9,7 +9,10 @@ import pl.edu.wszib.learningplatform.course.Course;
 import pl.edu.wszib.learningplatform.course.CourseRepository;
 import pl.edu.wszib.learningplatform.user.User;
 import pl.edu.wszib.learningplatform.user.UserRepository;
+import pl.edu.wszib.learningplatform.usercourse.UserCourse;
+import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final CourseRepository courseRepository;
+    private final UserCourseRepository userCourseRepository;
 
     public List<CartItemDto> getAllCartItems(Long userId) {
         User user = userRepository.getOne(userId);
@@ -71,5 +75,25 @@ public class CartService {
         cartRepository.save(cart);
         cartItemRepository.delete(cartItem);
         return true;
+    }
+
+    public boolean submitCart(Long userId) {
+        Cart cart = cartRepository.findByUserId(userId);
+        createUserCourses(cart);
+        cartRepository.delete(cart);
+        return true;
+    }
+
+    private void createUserCourses(Cart cart) {
+        User user = cart.getUser();
+        LocalDate now = LocalDate.now();
+        List<CartItem> cartItems = cart.getCartItemList();
+        for(CartItem cartItem : cartItems){
+            UserCourse userCourse = new UserCourse();
+            userCourse.setCourse(cartItem.getCourse());
+            userCourse.setUser(user);
+            userCourse.setPurchasedDate(now);
+            userCourseRepository.save(userCourse);
+        }
     }
 }

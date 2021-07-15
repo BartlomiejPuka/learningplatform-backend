@@ -20,7 +20,7 @@ public class UserCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate startDate;
+    private LocalDate purchasedDate;
 
     private boolean completed;
 

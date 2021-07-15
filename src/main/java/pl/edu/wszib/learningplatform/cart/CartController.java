@@ -3,12 +3,9 @@ package pl.edu.wszib.learningplatform.cart;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
-import pl.edu.wszib.learningplatform.user.User;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -34,5 +31,12 @@ public class CartController {
     @ResponseStatus(HttpStatus.OK)
     public boolean removeCartItem(@PathVariable("id") Long cartItemId, @AuthenticationPrincipal CustomUser customUser){
         return cartService.removeCartItem(cartItemId, customUser.getId());
+    }
+
+
+    @PostMapping("/submit")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean submitCart(@AuthenticationPrincipal CustomUser customUser){
+        return cartService.submitCart(customUser.getId());
     }
 }

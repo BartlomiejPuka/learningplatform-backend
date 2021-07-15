@@ -22,7 +22,7 @@ public class Cart {
     @OneToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> cartItemList = new ArrayList<>();
 
     public void addCartItem(CartItem cartItem) {
