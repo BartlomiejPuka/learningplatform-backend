@@ -3,6 +3,7 @@ package pl.edu.wszib.learningplatform.course.task;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import pl.edu.wszib.learningplatform.course.Course;
 
 import javax.persistence.*;
 
@@ -24,4 +25,7 @@ public class Task {
     private String title;
 
     private String description;
+
+    @ManyToOne
+    private Course course;
 }

@@ -30,11 +30,9 @@ public class Course {
     private CourseCategory category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "courseId")
     private List<Lesson> lessons = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "courseId")
     private List<Task> tasks = new ArrayList<>();
 
     @Embedded

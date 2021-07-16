@@ -4,6 +4,7 @@ package pl.edu.wszib.learningplatform.course.lesson;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import pl.edu.wszib.learningplatform.course.Course;
 
 import javax.persistence.*;
 
@@ -23,6 +24,7 @@ public class Lesson {
 
     private String description;
 
-
+    @ManyToOne
+    private Course course;
 
 }

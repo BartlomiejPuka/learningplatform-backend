@@ -7,13 +7,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import pl.edu.wszib.learningplatform.course.Course;
 import pl.edu.wszib.learningplatform.course.CourseRepository;
+import pl.edu.wszib.learningplatform.course.lesson.Lesson;
+import pl.edu.wszib.learningplatform.course.lesson.LessonRepository;
+import pl.edu.wszib.learningplatform.course.task.Task;
+import pl.edu.wszib.learningplatform.course.task.TaskRepository;
 import pl.edu.wszib.learningplatform.user.User;
 import pl.edu.wszib.learningplatform.user.UserRepository;
 import pl.edu.wszib.learningplatform.usercourse.UserCourse;
 import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
+import pl.edu.wszib.learningplatform.usercourse.lessonprogress.LessonProgress;
+import pl.edu.wszib.learningplatform.usercourse.lessonprogress.LessonProgressRepository;
+import pl.edu.wszib.learningplatform.usercourse.taskprogress.TaskProgress;
+import pl.edu.wszib.learningplatform.usercourse.taskprogress.TaskProgressRepository;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +34,13 @@ public class CartService {
 
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
+    private final CartItemRepository cartItemRepository; // CartFacade?
     private final CourseRepository courseRepository;
-    private final UserCourseRepository userCourseRepository;
+    private final UserCourseRepository userCourseRepository;  // CourseFacade?
+    private final LessonRepository lessonRepository;
+    private final LessonProgressRepository lessonProgressRepository;
+    private final TaskRepository taskRepository;
+    private final TaskProgressRepository taskProgressRepository;
 
     public List<CartItemDto> getAllCartItems(Long userId) {
         User user = userRepository.getOne(userId);
@@ -88,6 +99,8 @@ public class CartService {
         List<CartItem> cartItems = cart.getCartItemList();
         cartItems.stream()
                 .map(this::createUserCourse)
+                .map(this::addLessonsProgress)
+                .map(this::addTasksProgress)
                 .forEach(userCourseRepository::save);
     }
 
@@ -96,5 +109,35 @@ public class CartService {
         Course course = cartItem.getCourse();
         userCourse.setCourse(course);
         return userCourse;
+    }
+
+    private UserCourse addLessonsProgress(UserCourse userCourse) {
+        List<Lesson> lessons = lessonRepository.findByCourseId(userCourse.getCourse().getId());
+        lessons.stream()
+                .map(this::createLessonProgress)
+                .map(userCourse::addLessonProgress)
+                .forEach(lessonProgressRepository::save);
+        return userCourse;
+    }
+
+    private LessonProgress createLessonProgress(Lesson lesson) {
+        LessonProgress lessonProgress = new LessonProgress();
+        lessonProgress.setLesson(lesson);
+        return lessonProgress;
+    }
+
+    private UserCourse addTasksProgress(UserCourse userCourse) {
+        List<Task> tasks = taskRepository.findByCourseId(userCourse.getCourse().getId());
+        tasks.stream()
+                .map(this::createTaskProgress)
+                .map(userCourse::addTaskProgress)
+                .forEach(taskProgressRepository::save);
+        return userCourse;
+    }
+
+    private TaskProgress createTaskProgress(Task task) {
+        TaskProgress taskProgress = new TaskProgress();
+        taskProgress.setTask(task);
+        return taskProgress;
     }
 }
