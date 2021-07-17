@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.wszib.learningplatform.course.Course;
-import pl.edu.wszib.learningplatform.user.User;
 
 import javax.persistence.*;
 
@@ -20,5 +19,8 @@ public class CartItem {
 
     @OneToOne
     private Course course;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 
 }

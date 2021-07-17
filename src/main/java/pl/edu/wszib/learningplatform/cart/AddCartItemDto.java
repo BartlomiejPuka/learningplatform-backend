@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddCartItemDto {
+    @NotOwnedCourse
     @NotInCart
     Long courseId;
 }

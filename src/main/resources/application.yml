@@ -38,11 +38,12 @@ logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 const:
   springdoc.swagger-ui:
     url-pattern:
-      /v2/api-docs,
+      /v3/api-docs/**,
       /configuration/ui,
       /swagger-resources/**,
       /configuration/security,
       /swagger-ui.html,
-      /webjars/**
+      /webjars/**,
+      /swagger-ui/**
 
 jwt.expiration.time: 900000

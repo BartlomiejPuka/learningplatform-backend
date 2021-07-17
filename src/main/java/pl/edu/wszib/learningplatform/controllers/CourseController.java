@@ -1,10 +1,13 @@
-package pl.edu.wszib.learningplatform.course;
+package pl.edu.wszib.learningplatform.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.wszib.learningplatform.course.CourseCriteria;
+import pl.edu.wszib.learningplatform.course.CourseDto;
+import pl.edu.wszib.learningplatform.course.CourseService;
 import pl.edu.wszib.learningplatform.course.lesson.LessonDto;
 import pl.edu.wszib.learningplatform.course.task.TaskDto;
 
