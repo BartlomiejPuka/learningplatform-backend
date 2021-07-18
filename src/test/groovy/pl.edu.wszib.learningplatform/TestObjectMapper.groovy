@@ -20,4 +20,9 @@ class TestObjectMapper {
         return objectMapper.writeValueAsString(value);
     }
 
+
+    public <T> T readValue(String content, Class<T> clazz) {
+        return objectMapper.readValue(content, clazz);
+    }
+
 }

@@ -1,0 +1,10 @@
+-- INSERT INTO users (created_at, username, password, email, first_name, last_name, enabled)
+-- VALUES
+--     (now(), 'test1', 'test1', 'test1@gmail.com', 'test1', 'test1', 0),
+--     (now(), 'test2', 'test2', 'test2@gmail.com', 'test2', 'test2', 1)
+-- ;
+-- INSERT INTO courses(id,title, description)
+-- VALUES
+--     (1,'Programista Javy I', 'Ten kurs jest przeznaczony dla osób początkujących, które nigdy wcześniej niczego nie programowały. Poznasz dzięki niej klasy, obiekty, metody, zmienne, typy danych, tablice, operatory warunkowe i pętle. Nauczysz sie podstaw kolekcji i programowania obiektowego, a także zaczniesz pracować w IntelliJ IDEA.'),
+--     (2,'Programista Python I', '')
+-- ;

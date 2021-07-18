@@ -14,7 +14,6 @@ import static java.util.Optional.ofNullable
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 
 @SpringBootTest(classes = [TestLearningPlatformApplication])
-
 @AutoConfigureMockMvc
 abstract class BaseIT extends Specification {
 

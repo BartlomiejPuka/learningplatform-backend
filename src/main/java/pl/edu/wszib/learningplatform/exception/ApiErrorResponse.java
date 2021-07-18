@@ -1,15 +1,15 @@
 package pl.edu.wszib.learningplatform.exception;
 
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
 import java.util.List;
 
-@Value
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ApiErrorResponse {
-    private final List<String> errors;
-    private final String message;
+    private List<String> errors;
+    private String message;
 }

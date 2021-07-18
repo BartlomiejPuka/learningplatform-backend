@@ -4,7 +4,11 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
+    data:
+      classpath:test-users.sql,
+      classpath:data-course-categories.sql,
+      classpath:data-courses.sql,
+      classpath:data-lessons.sql,
+      classpath:data-tasks.sql,
+      classpath:view-course-products.sql
 
-security.ignored: /**
-security.basic.enable: false
-spring.autoconfigure.exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
