@@ -98,7 +98,15 @@ class CartControllerSpec extends BaseIT {
     }
 
     def "should be able to submit cart" () {
-
+        setup:
+            Long courseId = 3
+            setupCart(courseId)
+        when:
+            def response = performPost("/api/cart/submit", null)
+        then:
+            verifyAll {
+                response.status == OK.value()
+            }
     }
 
     def "should not be able to submit empty cart" () {
