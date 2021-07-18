@@ -7,6 +7,8 @@ import lombok.Setter;
 import pl.edu.wszib.learningplatform.course.Course;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "lessons")
@@ -26,5 +28,8 @@ public class Lesson {
 
     @ManyToOne
     private Course course;
+
+    @OneToMany
+    private List<LessonFile> lessonFiles = new ArrayList<>();
 
 }

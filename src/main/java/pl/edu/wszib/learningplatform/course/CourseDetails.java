@@ -11,6 +11,6 @@ public class CourseDetails {
     private String author;
     @Lob
     private String description;
-    @Lob
-    private byte[] image;
+
+    private String iconUrl;
 }

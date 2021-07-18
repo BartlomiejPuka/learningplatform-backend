@@ -10,9 +10,12 @@ public class CartOrderService {
 
     private final CartRepository cartRepository;
     private final CartCourseCreationService cartCourseCreationService;
-    // TODO: validate if cart is not empty otherwise throw exception.
+
     public void submitCart(User user) {
         Cart cart = cartRepository.getByUserId(user.getId());
+        if(cart == null || cart.getCartItemList().size() == 0) {
+            throw new EmptyCartException("Cannot submit empty cart.");
+        }
         cartCourseCreationService.createUserCourses(cart);
         cartRepository.delete(cart);
     }

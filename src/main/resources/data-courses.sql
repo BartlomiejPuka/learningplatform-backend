@@ -1,5 +1,5 @@
 INSERT INTO
-    courses(author, description, image, price, title, category_id)
+    courses(author, description, icon_url, price, title, category_id)
 VALUES
     ('Bartłomiej Puka', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', null, 99.9, 'Spring Framework', 1),
     ('Bartłomiej Puka', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', null, 99.9, 'Zaawansowana Java', 1),

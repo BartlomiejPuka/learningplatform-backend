@@ -18,7 +18,7 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/api/courses")
 @Slf4j
-@Tag(name = "Course Tag", description = "Rest endpoints for courses")
+@Tag(name = "Course Tag", description = "All endpoint that gives data about courses.")
 public class CourseController {
 
     private final CourseService courseService;
@@ -28,7 +28,6 @@ public class CourseController {
     public List<CourseDto> getCourses(CourseCriteria courseCriteria){
         return courseService.getCourses(courseCriteria);
     }
-
 
     @GetMapping("/categorized")
     @ResponseStatus(HttpStatus.OK)
