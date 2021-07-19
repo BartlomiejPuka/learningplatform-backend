@@ -12,7 +12,7 @@ spring:
         classpath:data-users.sql,
         classpath:data-lessons.sql,
         classpath:data-tasks.sql,
-        classpath:view-course-products.sql
+        classpath:data-user-courses.sql
   jpa:
       hibernate.ddl-auto: create
       properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect

@@ -13,4 +13,5 @@ public class CourseCategory {
     @Id
     private Long id;
     private String category;
+    private String iconUrl;
 }

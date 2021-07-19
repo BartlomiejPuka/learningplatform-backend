@@ -25,24 +25,26 @@ public class CourseService {
 
     public List<CourseDto> getCourses(CourseCriteria courseCriteria) {
         Specification<Course> courseSpecification = CourseSpecifications.createSpecification(courseCriteria);
-        List<Course> courseEntities = courseRepository.findAll(courseSpecification);
-        return courseEntities.stream().map(CourseMapper::toDto).collect(toList());
+        return courseRepository.findAll(courseSpecification).stream()
+                .map(CourseMapper::toDto)
+                .collect(toList());
     }
 
     public Map<String, List<CourseDto>> getCategorizedCourses() {
-        List<Course> courseEntities = courseRepository.findAll();
-        return courseEntities.stream()
+        return courseRepository.findAll().stream()
                 .map(CourseMapper::toDto)
                 .collect(groupingBy(CourseDto::getCategory));
     }
 
     public List<LessonDto> getCourseLessons(Long courseId) {
-        Course course = courseRepository.getOne(courseId);
-        return course.getLessons().stream().map(LessonMapper::toDto).collect(toList());
+        return courseRepository.getOne(courseId).getLessons().stream()
+                .map(LessonMapper::toDto)
+                .collect(toList());
     }
 
     public List<TaskDto> getCourseTasks(Long courseId) {
-        Course course = courseRepository.getOne(courseId);
-        return course.getTasks().stream().map(TaskMapper::toDto).collect(toList());
+        return courseRepository.getOne(courseId).getTasks().stream()
+                .map(TaskMapper::toDto)
+                .collect(toList());
     }
 }

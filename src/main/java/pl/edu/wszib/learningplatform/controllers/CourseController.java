@@ -2,6 +2,7 @@ package pl.edu.wszib.learningplatform.controllers;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,12 @@ public class CourseController {
         return courseService.getCategorizedCourses();
     }
 
-
+ /*   TODO: course details endpoint
+   @GetMapping("/{id}/details")
+    public List<Object> getCourseDetails(@PathVariable("id") Long courseId) {
+        return courseService.getCourseDetails(courseId);
+    }
+*/
     @GetMapping("/{id}/lessons")
     @ResponseStatus(HttpStatus.OK)
     public List<LessonDto> getCourseLessons(@PathVariable("id") Long courseId){

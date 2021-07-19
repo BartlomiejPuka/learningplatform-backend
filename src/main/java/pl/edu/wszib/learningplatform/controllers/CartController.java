@@ -14,7 +14,7 @@ import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.cart.AddCartItemDto;
 import pl.edu.wszib.learningplatform.cart.CartItemDto;
 import pl.edu.wszib.learningplatform.cart.CartManagementService;
-import pl.edu.wszib.learningplatform.cart.CartOrderService;
+import pl.edu.wszib.learningplatform.cart.CartSubmissionService;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class CartController {
 
     private final CartManagementService cartManagementService;
-    private final CartOrderService cartOrderService;
+    private final CartSubmissionService cartSubmissionService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -64,6 +64,6 @@ public class CartController {
             @ApiResponse(description = "Succesful Operation", responseCode = "200")
     })
     public void submitCart(@AuthenticationPrincipal CustomUser customUser){
-        cartOrderService.submitCart(customUser.getUser());
+        cartSubmissionService.submitCart(customUser.getUser());
     }
 }

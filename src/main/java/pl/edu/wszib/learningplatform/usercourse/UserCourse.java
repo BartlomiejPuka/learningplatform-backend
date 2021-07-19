@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "user_courses")
 @Setter
 @Getter
@@ -29,12 +28,12 @@ public class UserCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @CreatedDate
     private LocalDate purchasedDate;
+
+    private boolean bought;
 
     private boolean completed;
 
-    @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

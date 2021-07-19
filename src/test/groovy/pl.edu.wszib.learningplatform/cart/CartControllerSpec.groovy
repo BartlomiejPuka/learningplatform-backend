@@ -10,6 +10,9 @@ import pl.edu.wszib.learningplatform.course.CourseRepository
 import pl.edu.wszib.learningplatform.exception.ApiErrorResponse
 import pl.edu.wszib.learningplatform.user.User
 import pl.edu.wszib.learningplatform.user.UserRepository
+import pl.edu.wszib.learningplatform.usercourse.UserCourse
+import pl.edu.wszib.learningplatform.usercourse.UserCourseCreationService
+import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository
 
 import static org.springframework.http.HttpStatus.*
 
@@ -24,10 +27,13 @@ class CartControllerSpec extends BaseIT {
     CartItemRepository cartItemRepository
 
     @Autowired
-    CourseRepository courseRepository;
+    UserCourseRepository userCourseRepository;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserCourseCreationService userCourseCreationService
 
     def "should be able to add item to cart" () {
         setup:
@@ -130,17 +136,23 @@ class CartControllerSpec extends BaseIT {
             }
     }
 
+    def setup() {
+        User user = userRepository.findByUsername("testUser").get()
+        userCourseCreationService.setupUserCourses(user)
+    }
+
     def cleanup() {
         cartRepository.deleteAll()
+        userCourseRepository.deleteAll()
     }
 
     def setupCart(courseId) {
-        Course course = courseRepository.findById(courseId).get()
         User user = userRepository.findByUsername("testUser").get()
+        UserCourse userCourse = userCourseRepository.findByCourseIdAndUserId(courseId, user.getId())
         Cart cart = new Cart()
         cart.setUser(user)
         CartItem cartItem = new CartItem()
-        cartItem.setCourse(course)
+        cartItem.setUserCourse(userCourse)
         cart.addCartItem(cartItem)
         return cartRepository.save(cart)
     }

@@ -34,6 +34,7 @@ public class Course {
     private List<Lesson> lessons = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(inverseJoinColumns=@JoinColumn(name="task_id"))
     private List<Task> tasks = new ArrayList<>();
 
     @Embedded

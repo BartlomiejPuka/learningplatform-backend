@@ -3,8 +3,8 @@ package pl.edu.wszib.learningplatform.courseproducts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -13,14 +13,12 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class CourseProductService {
 
-    private final CourseProductRepository courseProductRepository;
-    private final ViewCourseProductRepository viewCourseProductRepository;
+    private final UserCourseRepository userCourseRepository;
 
     public List<CourseProductDto> getAllCourseProducts(User user) {
-        List<ViewCourseProduct> viewCourseProducts = viewCourseProductRepository.findByUserId(user.getId());
-        return new ArrayList<>();
-        //        List<ICourseProduct> courses = courseProductRepository.getCourseProducts(user.getId());
-//        List<CourseProductDto> courseProductDtos = courses.stream().map(CourseProductMapper::toDto).collect(toList());
-//        return courseProductDtos;
+        return userCourseRepository.findByUserId(user.getId()).stream()
+                .map(CourseProductMapper::toDto)
+                .collect(toList());
+
     }
 }

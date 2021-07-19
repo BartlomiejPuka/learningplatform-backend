@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.authentication;
+package pl.edu.wszib.learningplatform.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

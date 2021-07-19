@@ -6,6 +6,8 @@ import org.springframework.validation.annotation.Validated;
 import pl.edu.wszib.learningplatform.course.Course;
 import pl.edu.wszib.learningplatform.course.CourseRepository;
 import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.usercourse.UserCourse;
+import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,6 +22,7 @@ public class CartManagementService {
     private final CourseRepository courseRepository;
     private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
+    private final UserCourseRepository userCourseRepository;
 
     public List<CartItemDto> getAllCartItems(User user) {
         Cart cart = getUserCart(user);
@@ -28,11 +31,11 @@ public class CartManagementService {
     }
 
     public CartItemDto addCartItem(@Valid AddCartItemDto addCartItemDto, User user) {
-        Course course = courseRepository.getOne(addCartItemDto.getCourseId());
+        UserCourse userCourse = userCourseRepository.findByCourseIdAndUserId(addCartItemDto.getCourseId(), user.getId());
         Cart cart = getUserCart(user);
 
         CartItem cartItem = new CartItem();
-        cartItem.setCourse(course);
+        cartItem.setUserCourse(userCourse);
         cartItem = cartItemRepository.save(cartItem);
 
         cart.addCartItem(cartItem);
