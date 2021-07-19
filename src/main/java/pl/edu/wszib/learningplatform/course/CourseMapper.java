@@ -12,7 +12,7 @@ public class CourseMapper {
                 .author(course.getDetails().getAuthor())
                 .description(course.getDetails().getDescription())
                 .price(course.getPrice())
-                .category(course.getCategory().getCategory())
+                .courseCategoryDto(CourseCategoryMapper.toDto(course.getCategory()))
                 .build();
     }
 }

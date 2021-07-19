@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.courseproducts.CourseProductDto;
 import pl.edu.wszib.learningplatform.courseproducts.CourseProductService;
@@ -28,5 +25,12 @@ public class CourseProductController {
     @ResponseStatus(HttpStatus.OK)
     public List<CourseProductDto> getAllCourseProducts(@AuthenticationPrincipal CustomUser customUser) {
         return courseProductService.getAllCourseProducts(customUser.getUser());
+    }
+
+    @GetMapping("/category/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CourseProductDto> getCourseProductsByCategory(@PathVariable("id") Long categoryId,
+                                                              @AuthenticationPrincipal CustomUser customUser) {
+        return courseProductService.getCourseProductsByCategory(categoryId, customUser.getUser());
     }
 }

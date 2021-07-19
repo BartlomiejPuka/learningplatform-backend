@@ -12,6 +12,7 @@ import pl.edu.wszib.learningplatform.course.task.TaskMapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
@@ -22,6 +23,7 @@ import static java.util.stream.Collectors.toList;
 public class CourseService {
 
     private final CourseRepository courseRepository;
+    private final CourseCategoryRepository courseCategoryRepository;
 
     public List<CourseDto> getCourses(CourseCriteria courseCriteria) {
         Specification<Course> courseSpecification = CourseSpecifications.createSpecification(courseCriteria);
@@ -33,7 +35,7 @@ public class CourseService {
     public Map<String, List<CourseDto>> getCategorizedCourses() {
         return courseRepository.findAll().stream()
                 .map(CourseMapper::toDto)
-                .collect(groupingBy(CourseDto::getCategory));
+                .collect(groupingBy(i -> i.getCourseCategoryDto().getCategory()));
     }
 
     public List<LessonDto> getCourseLessons(Long courseId) {
@@ -46,5 +48,17 @@ public class CourseService {
         return courseRepository.getOne(courseId).getTasks().stream()
                 .map(TaskMapper::toDto)
                 .collect(toList());
+    }
+
+    public List<CourseCategoryDto> getCategories() {
+        return courseCategoryRepository.findAll().stream()
+                .map(CourseCategoryMapper::toDto)
+                .collect(toList());
+    }
+
+    public CourseCategoryDto getCategoryById(Long courseCategoryId) {
+        return courseCategoryRepository.findById(courseCategoryId)
+                .map(CourseCategoryMapper::toDto)
+                .orElse(null);
     }
 }

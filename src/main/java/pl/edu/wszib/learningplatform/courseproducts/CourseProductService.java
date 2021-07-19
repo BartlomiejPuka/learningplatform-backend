@@ -21,4 +21,10 @@ public class CourseProductService {
                 .collect(toList());
 
     }
+
+    public List<CourseProductDto> getCourseProductsByCategory(Long courseCategoryId, User user) {
+        return userCourseRepository.findByCourseCategoryIdAndUserId(courseCategoryId, user.getId()).stream()
+                .map(CourseProductMapper::toDto)
+                .collect(toList());
+    }
 }

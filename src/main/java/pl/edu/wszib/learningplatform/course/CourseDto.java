@@ -15,6 +15,5 @@ public class CourseDto {
     private String description;
     private String author;
     private BigDecimal price;
-    private String category;
-
+    private CourseCategoryDto courseCategoryDto;
 }

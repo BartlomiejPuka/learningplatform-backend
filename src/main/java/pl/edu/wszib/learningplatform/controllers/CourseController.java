@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.wszib.learningplatform.course.CourseCategoryDto;
 import pl.edu.wszib.learningplatform.course.CourseCriteria;
 import pl.edu.wszib.learningplatform.course.CourseDto;
 import pl.edu.wszib.learningplatform.course.CourseService;
@@ -54,4 +55,15 @@ public class CourseController {
         return courseService.getCourseTasks(courseId);
     }
 
+    @GetMapping("/categories")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CourseCategoryDto> getCategories() {
+        return courseService.getCategories();
+    }
+
+    @GetMapping("/categories/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CourseCategoryDto getCategoryById(@PathVariable("id") Long courseCategoryId) {
+        return courseService.getCategoryById(courseCategoryId);
+    }
 }
