@@ -30,6 +30,8 @@ public class UserCourse {
 
     private LocalDate purchasedDate;
 
+    private boolean inCart;
+
     private boolean bought;
 
     private boolean completed;

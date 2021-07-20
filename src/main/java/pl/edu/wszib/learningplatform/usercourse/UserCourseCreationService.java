@@ -46,12 +46,12 @@ public class UserCourseCreationService {
     public UserCourse setPurchasedInformation(UserCourse userCourse) {
         userCourse.setPurchasedDate(LocalDate.now());
         userCourse.setBought(true);
+        userCourse.setInCart(false);
         return userCourse;
     }
 
     public UserCourse initializeLessonsProgress(UserCourse userCourse) {
-        List<Lesson> lessons = lessonRepository.findByCourseId(userCourse.getCourse().getId());
-        lessons.stream()
+        lessonRepository.findByCourseId(userCourse.getCourse().getId()).stream()
                 .map(this::createLessonProgress)
                 .map(userCourse::addLessonProgress)
                 .forEach(lessonProgressRepository::save);
@@ -65,8 +65,7 @@ public class UserCourseCreationService {
     }
 
     public UserCourse initializeTasksProgress(UserCourse userCourse) {
-        List<Task> tasks = taskRepository.findByCourseId(userCourse.getCourse().getId());
-        tasks.stream()
+        taskRepository.findByCourseId(userCourse.getCourse().getId()).stream()
                 .map(this::createTaskProgress)
                 .map(userCourse::addTaskProgress)
                 .forEach(taskProgressRepository::save);

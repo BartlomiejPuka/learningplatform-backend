@@ -17,6 +17,7 @@ public class CourseProductDto {
     String category;
     Integer lessonsCount;
     Integer tasksCount;
+    boolean inCart;
     boolean bought;
     String courseIconUrl;
     String categoryIconUrl;

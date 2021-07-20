@@ -14,11 +14,10 @@ public class CourseProductMapper {
 
     public CourseProductDto toDto(UserCourse userCourse) {
         Course course = userCourse.getCourse();
-        List<Lesson> lessonList = course.getLessons();
-        List<Task> taskList = course.getTasks();
         return CourseProductDto.builder()
                 .courseId(course.getId())
                 .bought(userCourse.isBought())
+                .inCart(userCourse.isInCart())
                 .author(course.getDetails().getAuthor())
                 .category(course.getCategory().getCategory())
                 .description(course.getDetails().getDescription())

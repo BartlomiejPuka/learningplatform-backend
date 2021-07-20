@@ -35,6 +35,8 @@ public class CartManagementService {
         Cart cart = getUserCart(user);
 
         CartItem cartItem = new CartItem();
+        userCourse.setInCart(true);
+        userCourse =  userCourseRepository.save(userCourse);
         cartItem.setUserCourse(userCourse);
         cartItem = cartItemRepository.save(cartItem);
 
@@ -46,6 +48,9 @@ public class CartManagementService {
 
     public void removeCartItem(@CartItemExists Long cartItemId) {
         CartItem cartItem = cartItemRepository.getOne(cartItemId);
+        UserCourse userCourse = cartItem.getUserCourse();
+        userCourse.setInCart(false);
+        userCourseRepository.save(userCourse);
         Cart cart = cartItem.getCart();
         cart.removeCartItem(cartItem);
         cartRepository.save(cart);
