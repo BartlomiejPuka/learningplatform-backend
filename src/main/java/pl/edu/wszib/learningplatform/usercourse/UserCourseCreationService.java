@@ -18,6 +18,8 @@ import pl.edu.wszib.learningplatform.usercourse.taskprogress.TaskProgressReposit
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 @RequiredArgsConstructor
 public class UserCourseCreationService {
@@ -31,10 +33,11 @@ public class UserCourseCreationService {
     private final TaskProgressRepository taskProgressRepository;
 
     public void setupUserCourses(User user) {
-        courseRepository.findAll().stream()
+        List<UserCourse> userCoursesList = courseRepository.findAll().stream()
                 .map(this::createUserCourse)
                 .peek(i -> i.setUser(user))
-                .forEach(userCourseRepository::save);
+                .collect(toList());
+        userCourseRepository.saveAll(userCoursesList);
     }
 
     private UserCourse createUserCourse(Course course) {
@@ -51,10 +54,11 @@ public class UserCourseCreationService {
     }
 
     public UserCourse initializeLessonsProgress(UserCourse userCourse) {
-        lessonRepository.findByCourseId(userCourse.getCourse().getId()).stream()
+        List<LessonProgress> lessonProgressList = lessonRepository.findByCourseId(userCourse.getCourse().getId()).stream()
                 .map(this::createLessonProgress)
                 .map(userCourse::addLessonProgress)
-                .forEach(lessonProgressRepository::save);
+                .collect(toList());
+        lessonProgressRepository.saveAll(lessonProgressList);
         return userCourse;
     }
 
@@ -65,10 +69,11 @@ public class UserCourseCreationService {
     }
 
     public UserCourse initializeTasksProgress(UserCourse userCourse) {
-        taskRepository.findByCourseId(userCourse.getCourse().getId()).stream()
+        List<TaskProgress> taskProgressList = taskRepository.findByCourseId(userCourse.getCourse().getId()).stream()
                 .map(this::createTaskProgress)
                 .map(userCourse::addTaskProgress)
-                .forEach(taskProgressRepository::save);
+                .collect(toList());
+        taskProgressRepository.saveAll(taskProgressList);
         return userCourse;
     }
 
