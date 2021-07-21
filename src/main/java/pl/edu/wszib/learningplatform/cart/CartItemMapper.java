@@ -13,7 +13,7 @@ public class CartItemMapper {
         return CartItemDto.builder()
                 .id(cartItem.getId())
                 .courseAuthor(courseDetails.getAuthor())
-                .courserPrice(course.getPrice())
+                .coursePrice(course.getPrice())
                 .courseTitle(course.getTitle())
                 .build();
     }
