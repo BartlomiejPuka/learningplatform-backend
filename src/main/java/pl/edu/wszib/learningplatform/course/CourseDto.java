@@ -16,4 +16,5 @@ public class CourseDto {
     private String author;
     private BigDecimal price;
     private CourseCategoryDto courseCategoryDto;
+    private String urlSlug;
 }

@@ -12,6 +12,7 @@ public class CourseMapper {
                 .author(course.getDetails().getAuthor())
                 .description(course.getDetails().getDescription())
                 .price(course.getPrice())
+                .urlSlug(course.getDetails().getUrlSlug())
                 .courseCategoryDto(CourseCategoryMapper.toDto(course.getCategory()))
                 .build();
     }
