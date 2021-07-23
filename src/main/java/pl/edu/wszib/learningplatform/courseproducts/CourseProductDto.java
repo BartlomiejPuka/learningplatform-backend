@@ -19,6 +19,7 @@ public class CourseProductDto {
     Integer tasksCount;
     boolean inCart;
     boolean bought;
+    String urlSlug;
     String courseIconUrl;
     String categoryIconUrl;
 }

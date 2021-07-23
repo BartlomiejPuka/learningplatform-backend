@@ -10,6 +10,7 @@ public class CourseCategoryMapper {
                 .id(courseCategory.getId())
                 .category(courseCategory.getCategory())
                 .iconUrl(courseCategory.getIconUrl())
+                .urlSlug(courseCategory.getUrlSlug())
                 .build();
     }
 }

@@ -13,4 +13,6 @@ public class CourseDetails {
     private String description;
 
     private String iconUrl;
+
+    private String urlSlug;
 }

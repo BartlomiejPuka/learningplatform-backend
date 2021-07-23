@@ -1,7 +1,7 @@
 
 
 INSERT INTO
-    user_courses(user_id, course_id, bought, completed, in_cart)
+    enrolled_courses(user_id, course_id, bought, completed, in_cart)
 VALUES
     (1,1, false, false, false),
     (1,2, false, false, false),

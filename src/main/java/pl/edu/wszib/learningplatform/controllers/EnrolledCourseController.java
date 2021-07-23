@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
+import pl.edu.wszib.learningplatform.course.CourseDto;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseService;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class EnrolledCourseController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<EnrolledCourseDto> getAllEnrolledCourses(@AuthenticationPrincipal CustomUser customUser){
+    public List<CourseDto> getAllEnrolledCourses(@AuthenticationPrincipal CustomUser customUser){
         return enrolledCourseService.getAllEnrolledCourses(customUser.getUser());
     }
 }

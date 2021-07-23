@@ -25,6 +25,6 @@ public class NotInCartValidator implements ConstraintValidator<NotInCart, Long> 
             return true;
         }
         List<CartItem> cartItems = cart.getCartItemList();
-        return !cartItems.stream().filter(i->i.getUserCourse().getCourse().getId() == courseId).findFirst().isPresent();
+        return !cartItems.stream().filter(i->i.getEnrolledCourse().getCourse().getId() == courseId).findFirst().isPresent();
     }
 }

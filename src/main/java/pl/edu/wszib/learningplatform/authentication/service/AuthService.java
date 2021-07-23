@@ -16,7 +16,7 @@ import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
 import pl.edu.wszib.learningplatform.authentication.email.MailService;
 import pl.edu.wszib.learningplatform.authentication.email.NotificationEmail;
 import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
-import pl.edu.wszib.learningplatform.usercourse.UserCourseCreationService;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseCreationService;
 import pl.edu.wszib.learningplatform.util.exceptions.UserAlreadyExistsException;
 import pl.edu.wszib.learningplatform.authentication.model.VerificationToken;
 import pl.edu.wszib.learningplatform.authentication.repository.VerificationTokenRepository;
@@ -47,7 +47,7 @@ public class AuthService {
 
     private final RefreshTokenService refreshTokenService;
 
-    private final UserCourseCreationService userCourseCreationService;
+    private final EnrolledCourseCreationService userCourseCreationService;
 
     /**
      * (1) sprawdza czy użytkownik z podanym username istnieje w bazie danych juz w bazie danych

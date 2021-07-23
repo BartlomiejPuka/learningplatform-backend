@@ -3,11 +3,9 @@ package pl.edu.wszib.learningplatform.cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import pl.edu.wszib.learningplatform.course.Course;
-import pl.edu.wszib.learningplatform.course.CourseRepository;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseRepository;
 import pl.edu.wszib.learningplatform.user.User;
-import pl.edu.wszib.learningplatform.usercourse.UserCourse;
-import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -19,10 +17,9 @@ import static java.util.stream.Collectors.toList;
 @Validated
 public class CartManagementService {
 
-    private final CourseRepository courseRepository;
     private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
-    private final UserCourseRepository userCourseRepository;
+    private final EnrolledCourseRepository userCourseRepository;
 
     public List<CartItemDto> getAllCartItems(User user) {
         Cart cart = getUserCart(user);
@@ -31,13 +28,13 @@ public class CartManagementService {
     }
 
     public CartItemDto addCartItem(@Valid AddCartItemDto addCartItemDto, User user) {
-        UserCourse userCourse = userCourseRepository.findByCourseIdAndUserId(addCartItemDto.getCourseId(), user.getId());
+        EnrolledCourse userCourse = userCourseRepository.findByCourseIdAndUserId(addCartItemDto.getCourseId(), user.getId());
         Cart cart = getUserCart(user);
 
         CartItem cartItem = new CartItem();
         userCourse.setInCart(true);
         userCourse =  userCourseRepository.save(userCourse);
-        cartItem.setUserCourse(userCourse);
+        cartItem.setEnrolledCourse(userCourse);
         cartItem = cartItemRepository.save(cartItem);
 
         cart.addCartItem(cartItem);
@@ -48,7 +45,7 @@ public class CartManagementService {
 
     public void removeCartItem(@CartItemExists Long cartItemId) {
         CartItem cartItem = cartItemRepository.getOne(cartItemId);
-        UserCourse userCourse = cartItem.getUserCourse();
+        EnrolledCourse userCourse = cartItem.getEnrolledCourse();
         userCourse.setInCart(false);
         userCourseRepository.save(userCourse);
         Cart cart = cartItem.getCart();
@@ -67,4 +64,8 @@ public class CartManagementService {
         return cartRepository.save(cart);
     }
 
+    public long getCartItemsCount(User user) {
+        return cartRepository.countCartItemListByUserId(user.getId())
+                .orElse(0L);
+    }
 }

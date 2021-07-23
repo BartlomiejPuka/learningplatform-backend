@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.usercourse.lessonprogress;
+package pl.edu.wszib.learningplatform.enrolledcourse.lessonprogress;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

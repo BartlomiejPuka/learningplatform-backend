@@ -66,4 +66,11 @@ public class CartController {
     public void submitCart(@AuthenticationPrincipal CustomUser customUser){
         cartSubmissionService.submitCart(customUser.getUser());
     }
+
+
+    @GetMapping("/count")
+    @ResponseStatus(HttpStatus.OK)
+    public long getCartItemsCount(@AuthenticationPrincipal CustomUser customUser) {
+        return cartManagementService.getCartItemsCount(customUser.getUser());
+    }
 }

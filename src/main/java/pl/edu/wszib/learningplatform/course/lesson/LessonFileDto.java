@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.controllers;
+package pl.edu.wszib.learningplatform.course.lesson;
 
 
 import lombok.Builder;
@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class EnrolledCourseDto {
+public class LessonFileDto {
+
     private Long id;
-    private String courseTitle;
+    private String fileUrl;
 }

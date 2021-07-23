@@ -27,10 +27,17 @@ public class CourseProductController {
         return courseProductService.getAllCourseProducts(customUser.getUser());
     }
 
-    @GetMapping("/category/{id}")
+//    @GetMapping("/category/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<CourseProductDto> getCourseProductsByCategory(@PathVariable("id") Long categoryId,
+//                                                              @AuthenticationPrincipal CustomUser customUser) {
+//        return courseProductService.getCourseProductsByCategory(categoryId, customUser.getUser());
+//    }
+
+    @GetMapping("/category/{slug}")
     @ResponseStatus(HttpStatus.OK)
-    public List<CourseProductDto> getCourseProductsByCategory(@PathVariable("id") Long categoryId,
-                                                              @AuthenticationPrincipal CustomUser customUser) {
-        return courseProductService.getCourseProductsByCategory(categoryId, customUser.getUser());
+    public List<CourseProductDto> getCourseProductsByUrlSlug(@PathVariable("slug") String urlSlug,
+                                                          @AuthenticationPrincipal CustomUser customUser) {
+        return courseProductService.getCourseProductsByUrlSlug(urlSlug, customUser.getUser());
     }
 }

@@ -14,4 +14,5 @@ public class CourseCategory {
     private Long id;
     private String category;
     private String iconUrl;
+    private String urlSlug;
 }

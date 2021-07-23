@@ -8,7 +8,7 @@ import pl.edu.wszib.learningplatform.course.CourseDetails;
 public class CartItemMapper {
 
     public CartItemDto toDto(CartItem cartItem) {
-        Course course = cartItem.getUserCourse().getCourse();
+        Course course = cartItem.getEnrolledCourse().getCourse();
         CourseDetails courseDetails = course.getDetails();
         return CartItemDto.builder()
                 .id(cartItem.getId())

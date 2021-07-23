@@ -3,9 +3,9 @@ package pl.edu.wszib.learningplatform.cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.user.User;
-import pl.edu.wszib.learningplatform.usercourse.UserCourse;
-import pl.edu.wszib.learningplatform.usercourse.UserCourseCreationService;
-import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseCreationService;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseRepository;
 
 import java.util.List;
 
@@ -16,16 +16,16 @@ import static java.util.stream.Collectors.toList;
 public class CartSubmissionService {
 
     private final CartRepository cartRepository;
-    private final UserCourseCreationService userCourseCreationService;
-    private final UserCourseRepository userCourseRepository;
+    private final EnrolledCourseCreationService userCourseCreationService;
+    private final EnrolledCourseRepository userCourseRepository;
 
     public void submitCart(User user) {
         Cart cart = cartRepository.getByUserId(user.getId());
         if(cart == null || cart.getCartItemList().size() == 0) {
             throw new EmptyCartException("Cannot submit empty cart.");
         }
-        List<UserCourse> userCourseList = cart.getCartItemList().stream()
-                .map(CartItem::getUserCourse)
+        List<EnrolledCourse> userCourseList = cart.getCartItemList().stream()
+                .map(CartItem::getEnrolledCourse)
                 .map(userCourseCreationService::setPurchasedInformation)
                 .map(userCourseCreationService::initializeLessonsProgress)
                 .map(userCourseCreationService::initializeTasksProgress)

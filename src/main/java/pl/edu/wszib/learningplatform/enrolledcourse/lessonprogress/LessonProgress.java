@@ -1,11 +1,11 @@
-package pl.edu.wszib.learningplatform.usercourse.lessonprogress;
+package pl.edu.wszib.learningplatform.enrolledcourse.lessonprogress;
 
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.wszib.learningplatform.course.lesson.Lesson;
-import pl.edu.wszib.learningplatform.usercourse.UserCourse;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +25,7 @@ public class LessonProgress {
     private Lesson lesson;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private UserCourse userCourse;
+    private EnrolledCourse userCourse;
 
     private boolean completed;
 

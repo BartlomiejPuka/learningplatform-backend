@@ -12,5 +12,6 @@ public class CourseCategoryDto {
     private String category;
     private Long id;
     private String iconUrl;
+    private String urlSlug;
 
 }

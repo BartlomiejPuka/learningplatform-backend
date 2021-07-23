@@ -61,4 +61,22 @@ public class CourseService {
                 .map(CourseCategoryMapper::toDto)
                 .orElse(null);
     }
+
+    public CourseDetailsDto getCourseDetails(Long courseId) {
+        return courseRepository.findById(courseId)
+                .map(CourseDetailsMapper::toDto)
+                .orElse(null);
+    }
+
+    public CourseDetailsDto getCourseDetailsByUrlSlug(String urlSlug) {
+        return courseRepository.findByDetailsUrlSlug(urlSlug)
+                .map(CourseDetailsMapper::toDto)
+                .orElse(null);
+    }
+
+    public CourseCategoryDto getCategoryByUrlSlug(String urlSlug) {
+        return courseCategoryRepository.findByUrlSlug(urlSlug)
+                .map(CourseCategoryMapper::toDto)
+                .orElse(null);
+    }
 }

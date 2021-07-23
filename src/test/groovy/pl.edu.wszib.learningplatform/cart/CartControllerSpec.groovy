@@ -1,18 +1,16 @@
 package pl.edu.wszib.learningplatform.cart
 
-import org.springframework.beans.factory.annotation.Autowire
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.test.context.support.WithUserDetails
 import org.springframework.test.context.ActiveProfiles
 import pl.edu.wszib.learningplatform.BaseIT
-import pl.edu.wszib.learningplatform.course.Course
-import pl.edu.wszib.learningplatform.course.CourseRepository
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseCreationService
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseRepository
 import pl.edu.wszib.learningplatform.exception.ApiErrorResponse
 import pl.edu.wszib.learningplatform.user.User
 import pl.edu.wszib.learningplatform.user.UserRepository
-import pl.edu.wszib.learningplatform.usercourse.UserCourse
-import pl.edu.wszib.learningplatform.usercourse.UserCourseCreationService
-import pl.edu.wszib.learningplatform.usercourse.UserCourseRepository
 
 import static org.springframework.http.HttpStatus.*
 
@@ -27,13 +25,13 @@ class CartControllerSpec extends BaseIT {
     CartItemRepository cartItemRepository
 
     @Autowired
-    UserCourseRepository userCourseRepository;
+    EnrolledCourseRepository enrolledCourseRepository;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    UserCourseCreationService userCourseCreationService
+    EnrolledCourseCreationService enrolledCourseCreationService
 
     def "should be able to add item to cart" () {
         setup:
@@ -138,17 +136,17 @@ class CartControllerSpec extends BaseIT {
 
     def setup() {
         User user = userRepository.findByUsername("testUser").get()
-        userCourseCreationService.setupUserCourses(user)
+        enrolledCourseCreationService.setupUserCourses(user)
     }
 
     def cleanup() {
         cartRepository.deleteAll()
-        userCourseRepository.deleteAll()
+        enrolledCourseRepository.deleteAll()
     }
 
     def setupCart(courseId) {
         User user = userRepository.findByUsername("testUser").get()
-        UserCourse userCourse = userCourseRepository.findByCourseIdAndUserId(courseId, user.getId())
+        EnrolledCourse userCourse = enrolledCourseRepository.findByCourseIdAndUserId(courseId, user.getId())
         Cart cart = new Cart()
         cart.setUser(user)
         CartItem cartItem = new CartItem()

@@ -10,5 +10,5 @@ spring:
       classpath:data-courses.sql,
       classpath:data-lessons.sql,
       classpath:data-tasks.sql,
-      classpath:data-user-courses.sql
+      classpath:data-enrolled-courses.sql
 

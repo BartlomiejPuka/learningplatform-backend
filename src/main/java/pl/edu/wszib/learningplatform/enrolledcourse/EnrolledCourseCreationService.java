@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.usercourse;
+package pl.edu.wszib.learningplatform.enrolledcourse;
 
 
 import lombok.RequiredArgsConstructor;
@@ -10,10 +10,10 @@ import pl.edu.wszib.learningplatform.course.lesson.LessonRepository;
 import pl.edu.wszib.learningplatform.course.task.Task;
 import pl.edu.wszib.learningplatform.course.task.TaskRepository;
 import pl.edu.wszib.learningplatform.user.User;
-import pl.edu.wszib.learningplatform.usercourse.lessonprogress.LessonProgress;
-import pl.edu.wszib.learningplatform.usercourse.lessonprogress.LessonProgressRepository;
-import pl.edu.wszib.learningplatform.usercourse.taskprogress.TaskProgress;
-import pl.edu.wszib.learningplatform.usercourse.taskprogress.TaskProgressRepository;
+import pl.edu.wszib.learningplatform.enrolledcourse.lessonprogress.LessonProgress;
+import pl.edu.wszib.learningplatform.enrolledcourse.lessonprogress.LessonProgressRepository;
+import pl.edu.wszib.learningplatform.enrolledcourse.taskprogress.TaskProgress;
+import pl.edu.wszib.learningplatform.enrolledcourse.taskprogress.TaskProgressRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,9 +22,9 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
-public class UserCourseCreationService {
+public class EnrolledCourseCreationService {
 
-    private final UserCourseRepository userCourseRepository;
+    private final EnrolledCourseRepository enrolledCourseRepository;
     private final CourseRepository courseRepository;
     // TODO: move those repositories?
     private final LessonRepository lessonRepository;
@@ -33,27 +33,27 @@ public class UserCourseCreationService {
     private final TaskProgressRepository taskProgressRepository;
 
     public void setupUserCourses(User user) {
-        List<UserCourse> userCoursesList = courseRepository.findAll().stream()
+        List<EnrolledCourse> userCoursesList = courseRepository.findAll().stream()
                 .map(this::createUserCourse)
                 .peek(i -> i.setUser(user))
                 .collect(toList());
-        userCourseRepository.saveAll(userCoursesList);
+        enrolledCourseRepository.saveAll(userCoursesList);
     }
 
-    private UserCourse createUserCourse(Course course) {
-        UserCourse userCourse = new UserCourse();
+    private EnrolledCourse createUserCourse(Course course) {
+        EnrolledCourse userCourse = new EnrolledCourse();
         userCourse.setCourse(course);
-        return userCourseRepository.save(userCourse);
+        return enrolledCourseRepository.save(userCourse);
     }
 
-    public UserCourse setPurchasedInformation(UserCourse userCourse) {
+    public EnrolledCourse setPurchasedInformation(EnrolledCourse userCourse) {
         userCourse.setPurchasedDate(LocalDate.now());
         userCourse.setBought(true);
         userCourse.setInCart(false);
         return userCourse;
     }
 
-    public UserCourse initializeLessonsProgress(UserCourse userCourse) {
+    public EnrolledCourse initializeLessonsProgress(EnrolledCourse userCourse) {
         List<LessonProgress> lessonProgressList = lessonRepository.findByCourseId(userCourse.getCourse().getId()).stream()
                 .map(this::createLessonProgress)
                 .map(userCourse::addLessonProgress)
@@ -68,7 +68,7 @@ public class UserCourseCreationService {
         return lessonProgress;
     }
 
-    public UserCourse initializeTasksProgress(UserCourse userCourse) {
+    public EnrolledCourse initializeTasksProgress(EnrolledCourse userCourse) {
         List<TaskProgress> taskProgressList = taskRepository.findByCourseId(userCourse.getCourse().getId()).stream()
                 .map(this::createTaskProgress)
                 .map(userCourse::addTaskProgress)

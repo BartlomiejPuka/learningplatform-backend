@@ -1,11 +1,10 @@
-package pl.edu.wszib.learningplatform.usercourse.taskprogress;
+package pl.edu.wszib.learningplatform.enrolledcourse.taskprogress;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import pl.edu.wszib.learningplatform.course.lesson.Lesson;
 import pl.edu.wszib.learningplatform.course.task.Task;
-import pl.edu.wszib.learningplatform.usercourse.UserCourse;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class TaskProgress {
     private Task task;
 
     @ManyToOne
-    private UserCourse userCourse;
+    private EnrolledCourse userCourse;
 
     private boolean completed;
 
