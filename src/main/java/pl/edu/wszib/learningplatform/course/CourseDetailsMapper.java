@@ -7,6 +7,7 @@ import pl.edu.wszib.learningplatform.course.lesson.LessonMapper;
 import pl.edu.wszib.learningplatform.course.task.Task;
 import pl.edu.wszib.learningplatform.course.task.TaskDto;
 import pl.edu.wszib.learningplatform.course.task.TaskMapper;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse;
 
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class CourseDetailsMapper {
                 .category(courseCategory.getCategory())
                 .categoryIconUrl(courseCategory.getIconUrl())
                 .build();
+    }
+
+    public CourseDetailsDto toDto(EnrolledCourse enrolledCourse){
+        CourseDetailsDto courseDetailsDto = toDto(enrolledCourse.getCourse());
+        return courseDetailsDto;
     }
 
     private List<LessonDto> extractLessons(List<Lesson> lessons) {

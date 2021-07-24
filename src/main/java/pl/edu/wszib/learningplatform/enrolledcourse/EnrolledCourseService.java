@@ -2,6 +2,8 @@ package pl.edu.wszib.learningplatform.enrolledcourse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.edu.wszib.learningplatform.course.CourseDetailsDto;
+import pl.edu.wszib.learningplatform.course.CourseDetailsMapper;
 import pl.edu.wszib.learningplatform.course.CourseDto;
 import pl.edu.wszib.learningplatform.course.CourseMapper;
 import pl.edu.wszib.learningplatform.user.User;
@@ -21,5 +23,11 @@ public class EnrolledCourseService {
                 .map(EnrolledCourse::getCourse)
                 .map(CourseMapper::toDto)
                 .collect(toList());
+    }
+
+    public CourseDetailsDto getCourseDetailsByUrlSlug(String urlSlug, User user){
+        return enrolledCourseRepository.findByCourseDetailsUrlSlugAndUserId(urlSlug, user.getId())
+                .map(CourseDetailsMapper::toDto)
+                .orElse(null);
     }
 }

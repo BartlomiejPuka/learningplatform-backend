@@ -41,11 +41,11 @@ public class CourseController {
 //        return courseService.getCourseDetails(courseId);
 //    }
 
-    @GetMapping("/{slug}/details")
-    @ResponseStatus(HttpStatus.OK)
-    public CourseDetailsDto getCourseDetails(@PathVariable("slug") String urlSlug) {
-        return courseService.getCourseDetailsByUrlSlug(urlSlug);
-    }
+//    @GetMapping("/{slug}/details")
+//    @ResponseStatus(HttpStatus.OK)
+//    public CourseDetailsDto getCourseDetails(@PathVariable("slug") String urlSlug) {
+//        return courseService.getCourseDetailsByUrlSlug(urlSlug);
+//    }
 
     @GetMapping("/{id}/lessons")
     @ResponseStatus(HttpStatus.OK)

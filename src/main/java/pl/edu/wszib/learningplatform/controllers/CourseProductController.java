@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
+import pl.edu.wszib.learningplatform.course.CourseDetailsDto;
 import pl.edu.wszib.learningplatform.courseproducts.CourseProductDto;
 import pl.edu.wszib.learningplatform.courseproducts.CourseProductService;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseService;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class CourseProductController {
 
     private final CourseProductService courseProductService;
+    private final EnrolledCourseService enrolledCourseService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -39,5 +42,13 @@ public class CourseProductController {
     public List<CourseProductDto> getCourseProductsByUrlSlug(@PathVariable("slug") String urlSlug,
                                                           @AuthenticationPrincipal CustomUser customUser) {
         return courseProductService.getCourseProductsByUrlSlug(urlSlug, customUser.getUser());
+    }
+
+
+    @GetMapping("course/{slug}/details")
+    @ResponseStatus(HttpStatus.OK)
+    public CourseDetailsDto getCourseDetails(@PathVariable("slug") String urlSlug,
+                                             @AuthenticationPrincipal CustomUser customUser) {
+        return enrolledCourseService.getCourseDetailsByUrlSlug(urlSlug, customUser.getUser());
     }
 }
