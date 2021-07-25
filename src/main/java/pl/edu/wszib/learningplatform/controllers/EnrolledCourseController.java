@@ -15,14 +15,20 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/enrolled-courses")
+@RequestMapping("/api/user/courses")
 public class EnrolledCourseController {
 
     private final EnrolledCourseService enrolledCourseService;
 
-    @GetMapping
+    @GetMapping("/bought")
     @ResponseStatus(HttpStatus.OK)
-    public List<CourseDto> getAllEnrolledCourses(@AuthenticationPrincipal CustomUser customUser){
-        return enrolledCourseService.getAllEnrolledCourses(customUser.getUser());
+    public List<CourseDto> getAllBoughtCourses(@AuthenticationPrincipal CustomUser customUser){
+        return enrolledCourseService.getAllBoughtCourses(customUser.getUser());
+    }
+
+    @GetMapping("/not-bought")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CourseDto> getAllNotBoughtCourses(@AuthenticationPrincipal CustomUser customUser){
+        return enrolledCourseService.getAllNotBoughtCourses(customUser.getUser());
     }
 }

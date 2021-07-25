@@ -61,7 +61,7 @@ public class CartController {
     @PostMapping("/submit")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Buying cart's items.", responses = {
-            @ApiResponse(description = "Succesful Operation", responseCode = "200")
+            @ApiResponse(description = "Successful Operation", responseCode = "200")
     })
     public void submitCart(@AuthenticationPrincipal CustomUser customUser){
         cartSubmissionService.submitCart(customUser.getUser());
@@ -70,6 +70,11 @@ public class CartController {
 
     @GetMapping("/count")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Cart items count.", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = Long.class))
+            })
+    })
     public long getCartItemsCount(@AuthenticationPrincipal CustomUser customUser) {
         return cartManagementService.getCartItemsCount(customUser.getUser());
     }

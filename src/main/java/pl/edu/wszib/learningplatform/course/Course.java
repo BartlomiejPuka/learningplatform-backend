@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.wszib.learningplatform.course.lesson.Lesson;
+import pl.edu.wszib.learningplatform.course.scope.CourseScope;
 import pl.edu.wszib.learningplatform.course.task.Task;
 
 import javax.persistence.*;

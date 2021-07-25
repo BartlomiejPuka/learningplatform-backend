@@ -19,7 +19,6 @@ public class CourseProductService {
         return enrolledCourseRepository.findByUserId(user.getId()).stream()
                 .map(CourseProductMapper::toDto)
                 .collect(toList());
-
     }
 
     public List<CourseProductDto> getCourseProductsByCategory(Long courseCategoryId, User user) {

@@ -11,6 +11,6 @@ VALUES
 INSERT INTO
     courses_tasks(course_id, task_id)
 VALUES
-    (3, 1),
-    (3, 2),
-    (3, 3);
+    (12, 1),
+    (12, 2),
+    (12, 3);

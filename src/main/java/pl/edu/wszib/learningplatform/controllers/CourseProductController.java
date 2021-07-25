@@ -8,6 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.course.CourseDetailsDto;
+import pl.edu.wszib.learningplatform.courseproducts.CourseProductDetailsDto;
+import pl.edu.wszib.learningplatform.courseproducts.CourseProductDetailsService;
 import pl.edu.wszib.learningplatform.courseproducts.CourseProductDto;
 import pl.edu.wszib.learningplatform.courseproducts.CourseProductService;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseService;
@@ -22,6 +24,7 @@ import java.util.List;
 public class CourseProductController {
 
     private final CourseProductService courseProductService;
+    private final CourseProductDetailsService courseProductDetailsService;
     private final EnrolledCourseService enrolledCourseService;
 
     @GetMapping
@@ -30,13 +33,6 @@ public class CourseProductController {
         return courseProductService.getAllCourseProducts(customUser.getUser());
     }
 
-//    @GetMapping("/category/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<CourseProductDto> getCourseProductsByCategory(@PathVariable("id") Long categoryId,
-//                                                              @AuthenticationPrincipal CustomUser customUser) {
-//        return courseProductService.getCourseProductsByCategory(categoryId, customUser.getUser());
-//    }
-
     @GetMapping("/category/{slug}")
     @ResponseStatus(HttpStatus.OK)
     public List<CourseProductDto> getCourseProductsByUrlSlug(@PathVariable("slug") String urlSlug,
@@ -44,11 +40,10 @@ public class CourseProductController {
         return courseProductService.getCourseProductsByUrlSlug(urlSlug, customUser.getUser());
     }
 
-
-    @GetMapping("course/{slug}/details")
+    @GetMapping("/course/{slug}/details")
     @ResponseStatus(HttpStatus.OK)
-    public CourseDetailsDto getCourseDetails(@PathVariable("slug") String urlSlug,
-                                             @AuthenticationPrincipal CustomUser customUser) {
-        return enrolledCourseService.getCourseDetailsByUrlSlug(urlSlug, customUser.getUser());
+    public CourseProductDetailsDto getCourseDetails(@PathVariable("slug") String urlSlug,
+                                                    @AuthenticationPrincipal CustomUser customUser) {
+        return courseProductDetailsService.getCourseDetailsByUrlSlug(urlSlug, customUser.getUser());
     }
 }
