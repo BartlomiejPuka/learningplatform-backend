@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.course.CourseDto;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseService;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class EnrolledCourseController {
 
     @GetMapping("/bought")
     @ResponseStatus(HttpStatus.OK)
-    public List<CourseDto> getAllBoughtCourses(@AuthenticationPrincipal CustomUser customUser){
+    public List<EnrolledCourseDto> getAllBoughtCourses(@AuthenticationPrincipal CustomUser customUser){
         return enrolledCourseService.getAllBoughtCourses(customUser.getUser());
     }
 

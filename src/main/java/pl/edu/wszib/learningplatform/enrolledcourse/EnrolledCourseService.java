@@ -18,10 +18,9 @@ public class EnrolledCourseService {
 
     private final EnrolledCourseRepository enrolledCourseRepository;
 
-    public List<CourseDto> getAllBoughtCourses(User user) {
+    public List<EnrolledCourseDto> getAllBoughtCourses(User user) {
         return enrolledCourseRepository.findByUserIdAndBought(user.getId(), true).stream()
-                .map(EnrolledCourse::getCourse)
-                .map(CourseMapper::toDto)
+                .map(EnrolledCourseMapper::toDto)
                 .collect(toList());
     }
 
