@@ -36,7 +36,30 @@ public class EnrolledCourseMapper {
                 .completedTasksCount(getCompletedTaskCount(enrolledCourse.getTaskProgressList()))
                 .lessonProgressList(extractLessonProgress(enrolledCourse.getLessonProgressList()))
                 .taskProgressList(extractTaskProgress(enrolledCourse.getTaskProgressList()))
+
+                .lessonsProgressPercentage(calculateLessonsProgressPercentage(enrolledCourse.getLessonProgressList()))
+                .tasksProgressPercentage(calculateTasksProgressPercentage(enrolledCourse.getTaskProgressList()))
                 .build();
+    }
+
+    private Double calculateLessonsProgressPercentage(List<LessonProgress> lessonProgress) {
+        int total = lessonProgress.size();
+        long completed = lessonProgress.stream()
+                .filter(LessonProgress::isCompleted).count();
+        if (completed == 0) {
+            return 0d;
+        }
+        return (double) ((total / completed)*100);
+    }
+
+    private Double calculateTasksProgressPercentage(List<TaskProgress> taskProgress) {
+        int total = taskProgress.size();
+        long completed = taskProgress.stream()
+                .filter(TaskProgress::isCompleted).count();
+        if (completed == 0) {
+            return 0d;
+        }
+        return (double) ((total / completed)*100);
     }
 
     private Long getCompletedTaskCount(List<TaskProgress> taskProgress){

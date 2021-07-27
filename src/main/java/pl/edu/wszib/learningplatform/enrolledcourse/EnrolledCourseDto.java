@@ -23,4 +23,6 @@ public class EnrolledCourseDto {
     Long completedTasksCount;
     List<LessonProgressDto> lessonProgressList;
     List<TaskProgressDto> taskProgressList;
+    Double lessonsProgressPercentage;
+    Double tasksProgressPercentage;
 }

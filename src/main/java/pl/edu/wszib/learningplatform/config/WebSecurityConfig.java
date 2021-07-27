@@ -41,13 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final PropertiesConstants propertiesConstants;
 
-    /**
-     * Ta metoda umozliwia skonfigurowanie zapytan. Niektóre zapytania mogą potrzebować
-     * uwierzytelnienia i tutaj możemy je oznaczyć. Dodatkowo możemy wyłączyć csrf
-     * oraz wprowadzić ustawienia dla cors.
-     * @param httpSecurity
-     * @throws Exception
-     */
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
@@ -65,33 +58,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    /**
-     * Musimy wybrać implementacje AuthenticationManagera
-     * @return
-     * @throws Exception
-     */
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
 
-    /**
-     * Zarządza uwierzytelnieniem. Działa pomiędzy AuthService a UserDetailsServiceImpl
-     * @param authenticationManagerBuilder
-     * @throws Exception
-     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
         authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl)
                 .passwordEncoder(passwordEncoder());
     }
 
-
-    /**
-     * Umożliwia nam ustawienie domyślnego algorytmu haszujacego.
-     * @return
-     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
