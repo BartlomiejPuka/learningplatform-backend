@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.security;
+package pl.edu.wszib.learningplatform.authentication.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static pl.edu.wszib.learningplatform.authentication.jwt.SecurityConstant.AUTHORIZATION;
+import static pl.edu.wszib.learningplatform.authentication.jwt.SecurityConstant.BEARER;
 
 @Component
 @RequiredArgsConstructor
@@ -42,10 +45,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-
-        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
-            return bearerToken.substring(7);
+        String bearerToken = request.getHeader(AUTHORIZATION);
+        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER)){
+            return bearerToken.substring(BEARER.length());
         }
         return bearerToken;
     }

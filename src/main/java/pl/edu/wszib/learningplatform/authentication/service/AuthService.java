@@ -10,17 +10,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenRequest;
+import pl.edu.wszib.learningplatform.authentication.jwt.JwtProvider;
+import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
 import pl.edu.wszib.learningplatform.authentication.email.MailService;
 import pl.edu.wszib.learningplatform.authentication.email.NotificationEmail;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
+import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenService;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseCreationService;
 import pl.edu.wszib.learningplatform.util.exceptions.UserAlreadyExistsException;
-import pl.edu.wszib.learningplatform.authentication.model.VerificationToken;
-import pl.edu.wszib.learningplatform.authentication.repository.VerificationTokenRepository;
-import pl.edu.wszib.learningplatform.security.JwtProvider;
+import pl.edu.wszib.learningplatform.authentication.verificationtoken.VerificationToken;
+import pl.edu.wszib.learningplatform.authentication.verificationtoken.VerificationTokenRepository;
 import pl.edu.wszib.learningplatform.user.User;
 import pl.edu.wszib.learningplatform.user.UserRepository;
 
@@ -49,14 +49,6 @@ public class AuthService {
 
     private final EnrolledCourseCreationService userCourseCreationService;
 
-    /**
-     * (1) sprawdza czy użytkownik z podanym username istnieje w bazie danych juz w bazie danych
-     * (2) Zapisuje dane użytkownika wraz z zhaszowanym hasłem
-     * (3) Generuje token, który użytkownik potrzebuje by aktywować swoje konto (enabled=1)
-     * (4) Wysyła mail do użytkownika.
-     * @param registerRequest
-     * @return
-     */
     @Transactional
     public boolean signup(RegisterRequest registerRequest){
 
@@ -81,11 +73,6 @@ public class AuthService {
     }
 
 
-    /**
-     * Tworzy unikatowy token, który jest przypiswywany danemu użytkownikowi i zapisywany jest do bazy.
-     * @param user
-     * @return
-     */
     private String generateVerificationToken(User user) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
@@ -108,15 +95,6 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    /**
-     * (1) Tworzymy UserNamePasswordAuthenticationToken na podstawie danych wysłanych z formularza do logowania
-     * (2) UseDetailsServiceImpl sprawdza czy użytkownik o podanym loginie istnieje
-     * (3) Jeśli istnieje to jest nastepnie sprawdzene czy jest enabled=1, w przeciwnym razie otrzyjmujemy AccessDenied
-     * (4) Generujemy JWT
-     * (5) Zwracamy nazwe uzytkownika, JWT, refresh token i czas wygasniecia tokena
-     * @param loginRequest
-     * @return
-     */
     public AuthenticationResponse login(LoginRequest loginRequest) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                 loginRequest.getPassword()));

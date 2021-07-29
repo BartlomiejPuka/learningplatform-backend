@@ -10,11 +10,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.cart.AddCartItemDto;
 import pl.edu.wszib.learningplatform.cart.CartItemDto;
 import pl.edu.wszib.learningplatform.cart.CartManagementService;
 import pl.edu.wszib.learningplatform.cart.CartSubmissionService;
+import pl.edu.wszib.learningplatform.user.UserPrincipal;
 
 import java.util.List;
 
@@ -34,8 +34,8 @@ public class CartController {
                     @Content(array = @ArraySchema(schema = @Schema(implementation = CartItemDto.class)))
             })
     })
-    public List<CartItemDto> getAllCartItems(@AuthenticationPrincipal CustomUser customUser){
-        return cartManagementService.getAllCartItems(customUser.getUser());
+    public List<CartItemDto> getAllCartItems(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        return cartManagementService.getAllCartItems(userPrincipal.getUser());
     }
 
     @PostMapping("/add")
@@ -45,8 +45,8 @@ public class CartController {
                     @Content(schema = @Schema(implementation = CartItemDto.class))
             })
     })
-    public CartItemDto addCartItem(@RequestBody AddCartItemDto addCartItemDto, @AuthenticationPrincipal CustomUser customUser){
-        return cartManagementService.addCartItem(addCartItemDto, customUser.getUser());
+    public CartItemDto addCartItem(@RequestBody AddCartItemDto addCartItemDto, @AuthenticationPrincipal UserPrincipal userPrincipal){
+        return cartManagementService.addCartItem(addCartItemDto, userPrincipal.getUser());
     }
 
     @PostMapping("/items/{id}/remove")
@@ -63,8 +63,8 @@ public class CartController {
     @Operation(summary = "Buying cart's items.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200")
     })
-    public void submitCart(@AuthenticationPrincipal CustomUser customUser){
-        cartSubmissionService.submitCart(customUser.getUser());
+    public void submitCart(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        cartSubmissionService.submitCart(userPrincipal.getUser());
     }
 
 
@@ -75,7 +75,7 @@ public class CartController {
                     @Content(schema = @Schema(implementation = Long.class))
             })
     })
-    public long getCartItemsCount(@AuthenticationPrincipal CustomUser customUser) {
-        return cartManagementService.getCartItemsCount(customUser.getUser());
+    public long getCartItemsCount(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return cartManagementService.getCartItemsCount(userPrincipal.getUser());
     }
 }

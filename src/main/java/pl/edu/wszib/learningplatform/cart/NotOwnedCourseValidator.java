@@ -2,9 +2,10 @@ package pl.edu.wszib.learningplatform.cart;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourse;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseRepository;
+import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.user.UserPrincipal;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -20,8 +21,9 @@ public class NotOwnedCourseValidator implements ConstraintValidator<NotOwnedCour
 
     @Override
     public boolean isValid(Long courseId, ConstraintValidatorContext context) {
-        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        EnrolledCourse userCourse = userCourseRepository.findByCourseIdAndUserId(courseId, customUser.getId());
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userPrincipal.getUser();
+        EnrolledCourse userCourse = userCourseRepository.findByCourseIdAndUserId(courseId, user.getId());
         return !userCourse.isBought();
     }
 }

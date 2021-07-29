@@ -7,8 +7,8 @@ import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.service.AuthService;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenRequest;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenService;
+import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenRequest;
+import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenService;
 
 import javax.validation.Valid;
 

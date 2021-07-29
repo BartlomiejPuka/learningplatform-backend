@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.wszib.learningplatform.authentication.service.CustomUser;
 import pl.edu.wszib.learningplatform.course.CourseDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseService;
+import pl.edu.wszib.learningplatform.user.UserPrincipal;
 
 import java.util.List;
 
@@ -23,13 +23,13 @@ public class EnrolledCourseController {
 
     @GetMapping("/bought")
     @ResponseStatus(HttpStatus.OK)
-    public List<EnrolledCourseDto> getAllBoughtCourses(@AuthenticationPrincipal CustomUser customUser){
-        return enrolledCourseService.getAllBoughtCourses(customUser.getUser());
+    public List<EnrolledCourseDto> getAllBoughtCourses(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        return enrolledCourseService.getAllBoughtCourses(userPrincipal.getUser());
     }
 
     @GetMapping("/not-bought")
     @ResponseStatus(HttpStatus.OK)
-    public List<CourseDto> getAllNotBoughtCourses(@AuthenticationPrincipal CustomUser customUser){
-        return enrolledCourseService.getAllNotBoughtCourses(customUser.getUser());
+    public List<CourseDto> getAllNotBoughtCourses(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        return enrolledCourseService.getAllNotBoughtCourses(userPrincipal.getUser());
     }
 }

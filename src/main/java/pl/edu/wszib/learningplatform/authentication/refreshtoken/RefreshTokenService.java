@@ -1,10 +1,8 @@
-package pl.edu.wszib.learningplatform.refreshtoken;
+package pl.edu.wszib.learningplatform.authentication.refreshtoken;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshToken;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshTokenRepository;
 import pl.edu.wszib.learningplatform.util.exceptions.NotFoundException;
 
 import java.time.Instant;

@@ -33,8 +33,9 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @Column(columnDefinition = "bit default 0")
-    private boolean enabled;
     private Instant createdAt;
+
+    private boolean isNonLocked;
+    private boolean isEnabled;
 
 }

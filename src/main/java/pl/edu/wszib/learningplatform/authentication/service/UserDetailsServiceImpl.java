@@ -1,6 +1,7 @@
 package pl.edu.wszib.learningplatform.authentication.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.wszib.learningplatform.user.User;
+import pl.edu.wszib.learningplatform.user.UserPrincipal;
 import pl.edu.wszib.learningplatform.user.UserRepository;
 
 import java.util.Collection;
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -28,21 +31,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<User> userOptional = userRepository.findByUsername(username);
         User user = userOptional
                 .orElseThrow(() -> new UsernameNotFoundException("No user Found with username : " + username));
-
-        return new CustomUser(
-                user.getUsername(),
-                user.getPassword(),
-                user.isEnabled(),
-                true,
-                true,
-                true,
-                getAuthorities("USER"),
-                user.getId(),
-                user);
-//        return new org.springframework.security
-//                .core.userdetails.User(user.getUsername(), user.getPassword(),
-//                user.isEnabled(), true, true,
-//                true, getAuthorities("USER"));
+        log.info("User with username: {} has been found in database", username);
+        return new UserPrincipal(user);
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(String role){

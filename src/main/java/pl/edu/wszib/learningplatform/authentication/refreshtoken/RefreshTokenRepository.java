@@ -1,7 +1,6 @@
-package pl.edu.wszib.learningplatform.refreshtoken;
+package pl.edu.wszib.learningplatform.authentication.refreshtoken;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.edu.wszib.learningplatform.refreshtoken.RefreshToken;
 
 import java.util.Optional;
 

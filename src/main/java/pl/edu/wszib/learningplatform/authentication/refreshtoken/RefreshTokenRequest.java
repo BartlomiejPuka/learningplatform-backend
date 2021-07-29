@@ -1,4 +1,4 @@
-package pl.edu.wszib.learningplatform.refreshtoken;
+package pl.edu.wszib.learningplatform.authentication.refreshtoken;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
