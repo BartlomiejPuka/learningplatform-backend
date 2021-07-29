@@ -46,3 +46,4 @@ const:
       /swagger-ui/**
 
 jwt.expiration.time: 900000
+jwt.secret: 'secret'

@@ -4,6 +4,6 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class SecurityConstant {
-    public static final String AUTHORIZATION = "Authorization";
-    public static final String BEARER = "Bearer ";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER_PREFIX = "Bearer ";
 }

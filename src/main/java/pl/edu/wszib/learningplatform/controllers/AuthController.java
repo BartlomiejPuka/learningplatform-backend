@@ -2,6 +2,7 @@ package pl.edu.wszib.learningplatform.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
 import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
@@ -50,11 +51,11 @@ public class AuthController {
      * @param loginRequest
      * @return
      */
-    @PostMapping(value = "/login")
-    @ResponseStatus(HttpStatus.OK)
-    public AuthenticationResponse login(@Valid @RequestBody LoginRequest loginRequest){
-        return authService.login(loginRequest);
-    }
+//    @PostMapping(value = "/login")
+//    @ResponseStatus(HttpStatus.OK)
+//    public AuthenticationResponse login(@Valid @RequestBody LoginRequest loginRequest){
+//        return authService.login(loginRequest);
+//    }
 
     /**
      * Umożliwia uzyskanie refresh tokena, który przedłuża czas trwania sesji użytkownika.
@@ -63,7 +64,7 @@ public class AuthController {
      */
     @PostMapping("refresh/token")
     @ResponseStatus(HttpStatus.OK)
-    public AuthenticationResponse refreshTokens(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
+    public ResponseEntity<?> refreshTokens(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest){
         return authService.refreshToken(refreshTokenRequest);
     }
 

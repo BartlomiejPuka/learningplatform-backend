@@ -1,90 +1,41 @@
 package pl.edu.wszib.learningplatform.authentication.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
+import pl.edu.wszib.learningplatform.authentication.service.UserDetailsServiceImpl;
+import pl.edu.wszib.learningplatform.user.UserPrincipal;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.*;
-import java.security.cert.CertificateException;
 import java.time.Instant;
 import java.util.Date;
 
-import static io.jsonwebtoken.Jwts.parser;
+import static java.util.stream.Collectors.toList;
 
-@Service
+@Component
 public class JwtProvider {
-    private KeyStore keyStore;
 
     @Value("${jwt.expiration.time}")
-    private Long jwtExpirationInMillis;
+    private long expirationTime;
+    @Value("${jwt.secret}")
+    private String secret;
 
-    @PostConstruct
-    public void init() {
-        try {
-            keyStore = KeyStore.getInstance("JKS");
-            InputStream resourceAsStream = getClass().getResourceAsStream("/learningplatform.jks");
-            keyStore.load(resourceAsStream, "secret".toCharArray());
-        } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new RuntimeException("Exception occurred while loading keystore");
-        }
+    private final UserDetailsServiceImpl userDetailsService;
 
+    public JwtProvider(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
-    public String generateToken(Authentication authentication) {
-        org.springframework.security.core.userdetails.User principal = (User) authentication.getPrincipal();
-        return Jwts.builder()
-                .setSubject(principal.getUsername())
-                .setIssuedAt(Date.from(Instant.now()))
-                .signWith(getPrivateKey())
-                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
-                .compact();
+    public String generateToken(String username){
+        UserPrincipal userPrincipal = (UserPrincipal) userDetailsService.loadUserByUsername(username);
+        return JWT.create()
+                .withSubject(userPrincipal.getUsername())
+                .withExpiresAt(Date.from(Instant.now().plusMillis(expirationTime)))
+                .withIssuer("/api/auth/refreshToken")
+                .withClaim("roles", userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(toList()))
+                .sign(Algorithm.HMAC256(secret));
     }
 
-    public String generateTokenWithUserName(String username){
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(Date.from(Instant.now()))
-                .signWith(getPrivateKey())
-                .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
-                .compact();
-    }
 
-    private PrivateKey getPrivateKey() {
-        try {
-            return (PrivateKey) keyStore.getKey("learningplatform", "secret".toCharArray());
-        } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new RuntimeException("Exception occured while retrieving public key from keystore");
-        }
-    }
-
-    public boolean validateToken(String jwt){
-        parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
-        return true;
-    }
-
-    private PublicKey getPublicKey(){
-        try{
-            return keyStore.getCertificate("learningplatform").getPublicKey();
-        } catch(KeyStoreException e){
-            throw new RuntimeException("Exception occured while retrieving public key.", e);
-        }
-    }
-
-    public String getUsernameFromJwt(String token){
-        Claims claims = parser()
-                .setSigningKey(getPublicKey())
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
-    }
-
-    public Long getJwtExpirationInMillis(){
-        return jwtExpirationInMillis;
-    }
 }
