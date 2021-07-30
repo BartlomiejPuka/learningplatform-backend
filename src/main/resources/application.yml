@@ -45,5 +45,5 @@ const:
       /webjars/**,
       /swagger-ui/**
 
-jwt.expiration.time: 900000
+jwt.expiration.time: 900000000
 jwt.secret: 'secret'

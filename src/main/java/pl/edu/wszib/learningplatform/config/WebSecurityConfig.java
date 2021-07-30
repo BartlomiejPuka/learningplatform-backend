@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,9 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.edu.wszib.learningplatform.authentication.jwt.*;
-import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenService;
 import pl.edu.wszib.learningplatform.authentication.service.UserDetailsServiceImpl;
 import pl.edu.wszib.learningplatform.util.PropertiesConstants;
 
@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
+        httpSecurity.cors().configurationSource(corsConfigurationSource());
 
         httpSecurity.authorizeRequests()
                 .antMatchers("/api/auth/**/**").permitAll()
@@ -49,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(authenticationFilter())
-                .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), userDetailsServiceImpl, secret))
+                .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), userDetailsServiceImpl, objectMapper, passwordEncoder, secret))
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint);
     }
@@ -58,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JsonObjectAuthenticationFilter authenticationFilter = new JsonObjectAuthenticationFilter(objectMapper);
         authenticationFilter.setAuthenticationSuccessHandler(restAuthenticationSuccessHandler);
         authenticationFilter.setAuthenticationFailureHandler(restAuthenticationFailureHandler);
-        authenticationFilter.setAuthenticationManager(authenticationManagerBean());
+        authenticationFilter.setAuthenticationManager(super.authenticationManager());
         authenticationFilter.setFilterProcessesUrl("/api/auth/login");
         return authenticationFilter;
     }
@@ -67,6 +68,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.addExposedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Autowired

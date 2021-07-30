@@ -1,5 +1,6 @@
 package pl.edu.wszib.learningplatform.exception;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,6 +43,16 @@ public class GlobalExceptionHandler {
 
         return ApiErrorResponse.builder()
                 .message("Api error occurred.")
+                .errors(singletonList(exception.getMessage()))
+                .build();
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ApiErrorResponse handleTokenExpiredException(TokenExpiredException exception) {
+        return ApiErrorResponse.builder()
+                .message("JWT Token expired.")
                 .errors(singletonList(exception.getMessage()))
                 .build();
     }
