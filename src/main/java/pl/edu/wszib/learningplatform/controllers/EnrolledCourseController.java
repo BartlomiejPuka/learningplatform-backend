@@ -45,7 +45,7 @@ public class EnrolledCourseController {
 
     /*@GetMapping("/{courseId}/lessons/{lessonId}/details")
     @ResponseStatus(HttpStatus.OK)
-    public List<EnrolledLessonDetailsDto> getCourseLessonDetails(@PathVariable("courseId") Long courseId,
+    public EnrolledLessonDetailsDto getCourseLessonDetails(@PathVariable("courseId") Long courseId,
                                                                  @PathVariable("lessonId") Long lessonId,
                                                                  @AuthenticationPrincipal UserPrincipal userPrincipal) {
         return enrolledLessonService.getCourseLessonDetails(courseId, lessonId, userPrincipal.getUser());
@@ -60,7 +60,7 @@ public class EnrolledCourseController {
 
     /*@GetMapping("/{courseId}/tasks/{taskId}/details")
     @ResponseStatus(HttpStatus.OK)
-    public List<EnrolledLessonDetailsDto> getCourseTaskDetails(@PathVariable("courseId") Long courseId,
+    public EnrolledLessonDetailsDto getCourseTaskDetails(@PathVariable("courseId") Long courseId,
                                                                 @PathVariable("taskId") Long taskId,
                                                                 @AuthenticationPrincipal UserPrincipal userPrincipal) {
         return enrolledTaskService.getCourseTaskDetails(courseId, taskId, userPrincipal.getUser());
