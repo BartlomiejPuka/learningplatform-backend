@@ -4,7 +4,10 @@ INSERT INTO
 VALUES
     ('Print hello world', 'Napisz program wypisujacy napis hello world.', 'tD2Ln2MoPz', 1, 12),
     ('Fizz buzz', 'Rozwiaz zadanie fizz buzz.', 'tD2Ln2MoPz', 2, 12),
-    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'tD2Ln2MoPz', 3, 12);
+    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'tD2Ln2MoPz', 3, 12),
+    ('Print hello world', 'Napisz program wypisujacy napis hello world.', 'tD2Ln2MoPz', 1, 10),
+    ('Fizz buzz', 'Rozwiaz zadanie fizz buzz.', 'tD2Ln2MoPz', 2, 10),
+    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'tD2Ln2MoPz', 3, 10);
 
 
 
@@ -13,4 +16,7 @@ INSERT INTO
 VALUES
     (12, 1),
     (12, 2),
-    (12, 3);
+    (12, 3),
+    (10, 4),
+    (10, 5),
+    (10, 6);

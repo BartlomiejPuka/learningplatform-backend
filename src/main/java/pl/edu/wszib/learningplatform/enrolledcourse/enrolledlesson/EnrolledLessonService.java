@@ -23,10 +23,15 @@ public class EnrolledLessonService {
         return lessonProgressList.stream().map(EnrolledLessonMapper::toDto).collect(toList());
     }
 
-    public void completeCourseLesson(Long courseId, Long lessonId, User user) {
-        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonIdAndUserCourseUserId(courseId, lessonId, user.getId());
+    public void completeCourseLesson(Long courseId, Long lessonOrderId, User user) {
+        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonOrderIdAndUserCourseUserId(courseId, lessonOrderId, user.getId());
         lessonProgress.setCompleted(true);
         lessonProgress.setCompletionDate(LocalDate.now());
         lessonProgressRepository.save(lessonProgress);
+    }
+
+    public EnrolledLessonDetailsDto getCourseLessonDetails(Long courseId, Long lessonOrderId, User user) {
+        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonOrderIdAndUserCourseUserId(courseId, lessonOrderId, user.getId());
+        return EnrolledLessonDetailsMapper.toDto(lessonProgress);
     }
 }

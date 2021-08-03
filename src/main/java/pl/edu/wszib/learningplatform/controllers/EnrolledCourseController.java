@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.course.CourseDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseService;
+import pl.edu.wszib.learningplatform.enrolledcourse.enrolledlesson.EnrolledLessonDetailsDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.enrolledlesson.EnrolledLessonDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.enrolledlesson.EnrolledLessonService;
+import pl.edu.wszib.learningplatform.enrolledcourse.enrolledtask.EnrolledTaskDetailsDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.enrolledtask.EnrolledTaskDto;
 import pl.edu.wszib.learningplatform.enrolledcourse.enrolledtask.EnrolledTaskService;
 import pl.edu.wszib.learningplatform.user.UserPrincipal;
@@ -43,13 +45,13 @@ public class EnrolledCourseController {
         return enrolledLessonService.getAllCourseLessons(courseId, userPrincipal.getUser());
     }
 
-    /*@GetMapping("/{courseId}/lessons/{lessonId}/details")
+    @GetMapping("/{courseId}/lessons/{lessonOrderId}/details")
     @ResponseStatus(HttpStatus.OK)
     public EnrolledLessonDetailsDto getCourseLessonDetails(@PathVariable("courseId") Long courseId,
-                                                                 @PathVariable("lessonId") Long lessonId,
-                                                                 @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return enrolledLessonService.getCourseLessonDetails(courseId, lessonId, userPrincipal.getUser());
-    }*/
+                                                           @PathVariable("lessonOrderId") Long lessonOrderId,
+                                                           @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return enrolledLessonService.getCourseLessonDetails(courseId, lessonOrderId, userPrincipal.getUser());
+    }
 
     @GetMapping("/{courseId}/tasks")
     @ResponseStatus(HttpStatus.OK)
@@ -58,27 +60,27 @@ public class EnrolledCourseController {
         return enrolledTaskService.getAllCourseTasks(courseId, userPrincipal.getUser());
     }
 
-    /*@GetMapping("/{courseId}/tasks/{taskId}/details")
+    @GetMapping("/{courseId}/tasks/{taskOrderId}/details")
     @ResponseStatus(HttpStatus.OK)
-    public EnrolledLessonDetailsDto getCourseTaskDetails(@PathVariable("courseId") Long courseId,
-                                                                @PathVariable("taskId") Long taskId,
-                                                                @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return enrolledTaskService.getCourseTaskDetails(courseId, taskId, userPrincipal.getUser());
-    }*/
-
-    @PutMapping("/{courseId}/tasks/{taskId}/complete")
-    @ResponseStatus(HttpStatus.OK)
-    public void completeCourseTask(@PathVariable("courseId") Long courseId,
-                                   @PathVariable("taskId") Long taskId,
-                                   @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        enrolledTaskService.completeCourseTask(courseId, taskId, userPrincipal.getUser());
+    public EnrolledTaskDetailsDto getCourseTaskDetails(@PathVariable("courseId") Long courseId,
+                                                       @PathVariable("taskOrderId") Long taskOrderId,
+                                                       @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return enrolledTaskService.getCourseTaskDetails(courseId, taskOrderId, userPrincipal.getUser());
     }
 
-    @PutMapping("/{courseId}/lessons/{lessonId}/complete")
+    @PutMapping("/{courseId}/tasks/{taskOrderId}/complete")
+    @ResponseStatus(HttpStatus.OK)
+    public void completeCourseTask(@PathVariable("courseId") Long courseId,
+                                   @PathVariable("taskOrderId") Long taskOrderId,
+                                   @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        enrolledTaskService.completeCourseTask(courseId, taskOrderId, userPrincipal.getUser());
+    }
+
+    @PutMapping("/{courseId}/lessons/{lessonOrderId}/complete")
     @ResponseStatus(HttpStatus.OK)
     public void completeCourseLesson(@PathVariable("courseId") Long courseId,
-                                   @PathVariable("lessonId") Long lessonId,
+                                   @PathVariable("lessonOrderId") Long lessonOrderId,
                                    @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        enrolledLessonService.completeCourseLesson(courseId, lessonId, userPrincipal.getUser());
+        enrolledLessonService.completeCourseLesson(courseId, lessonOrderId, userPrincipal.getUser());
     }
 }
