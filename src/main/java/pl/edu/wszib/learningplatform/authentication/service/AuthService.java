@@ -1,42 +1,29 @@
 package pl.edu.wszib.learningplatform.authentication.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.edu.wszib.learningplatform.authentication.dto.AuthenticationResponse;
-import pl.edu.wszib.learningplatform.authentication.dto.LoginRequest;
-import pl.edu.wszib.learningplatform.authentication.jwt.JwtProvider;
-import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.authentication.dto.RegisterRequest;
 import pl.edu.wszib.learningplatform.authentication.email.MailContentBuilder;
 import pl.edu.wszib.learningplatform.authentication.email.MailService;
 import pl.edu.wszib.learningplatform.authentication.email.NotificationEmail;
+import pl.edu.wszib.learningplatform.authentication.jwt.JwtProvider;
+import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenRequest;
 import pl.edu.wszib.learningplatform.authentication.refreshtoken.RefreshTokenService;
-import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseCreationService;
-import pl.edu.wszib.learningplatform.user.UserPrincipal;
-import pl.edu.wszib.learningplatform.util.exceptions.UserAlreadyExistsException;
 import pl.edu.wszib.learningplatform.authentication.verificationtoken.VerificationToken;
 import pl.edu.wszib.learningplatform.authentication.verificationtoken.VerificationTokenRepository;
+import pl.edu.wszib.learningplatform.enrolledcourse.EnrolledCourseCreationService;
 import pl.edu.wszib.learningplatform.user.User;
 import pl.edu.wszib.learningplatform.user.UserRepository;
+import pl.edu.wszib.learningplatform.util.exceptions.UserAlreadyExistsException;
 
 import javax.transaction.Transactional;
-import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
-import static java.util.stream.Collectors.toList;
 import static pl.edu.wszib.learningplatform.authentication.jwt.SecurityConstant.AUTHORIZATION_HEADER;
 import static pl.edu.wszib.learningplatform.authentication.jwt.SecurityConstant.BEARER_PREFIX;
 import static pl.edu.wszib.learningplatform.util.Constants.ACTIVATION_EMAIL;
@@ -104,19 +91,13 @@ public class AuthService {
     }
 
     public ResponseEntity<?> refreshToken(RefreshTokenRequest refreshTokenRequest) {
-        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String refreshToken = refreshTokenRequest.getRefreshToken();
+        refreshTokenService.validateRefreshToken(refreshToken);
+        refreshTokenService.deleteRefreshToken(refreshToken);
         String token = jwtProvider.generateToken(refreshTokenRequest.getUsername());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set(AUTHORIZATION_HEADER, BEARER_PREFIX + token);
         responseHeaders.set("refresh-token", refreshTokenService.generateRefreshToken().getToken());
         return ResponseEntity.ok().headers(responseHeaders).build();
-        //        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
-//        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
-//        return AuthenticationResponse.builder()
-//                .authenticationToken(token)
-//                .refreshToken(refreshTokenRequest.getRefreshToken())
-//                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
-//                .username(refreshTokenRequest.getUsername())
-//                .build();
     }
 }

@@ -11,7 +11,7 @@ public class CourseProductDetailsService {
 
     private final EnrolledCourseRepository enrolledCourseRepository;
 
-    public CourseProductDetailsDto getCourseDetailsByUrlSlug(String urlSlug, User user) {
+    public CourseProductDetailsDto getCourseProductDetailsByUrlSlug(String urlSlug, User user) {
             return enrolledCourseRepository.findByCourseDetailsUrlSlugAndUserId(urlSlug, user.getId())
                     .map(CourseProductDetailsMapper::toDto)
                     .orElse(null);
