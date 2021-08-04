@@ -1,5 +1,10 @@
 package pl.edu.wszib.learningplatform.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.wszib.learningplatform.course.*;
 import pl.edu.wszib.learningplatform.course.lesson.LessonDto;
 import pl.edu.wszib.learningplatform.course.task.TaskDto;
+import pl.edu.wszib.learningplatform.enrolledcourse.enrolledlesson.EnrolledLessonDetailsDto;
 
 import java.util.List;
 import java.util.Map;
@@ -17,21 +23,49 @@ import java.util.Map;
 @AllArgsConstructor
 @RequestMapping("/api/courses")
 @Slf4j
-@Tag(name = "Course Tag", description = "All endpoint that gives data about courses.")
+@Tag(name = "Course - General", description = "All endpoint that gives general data about courses.")
 public class CourseController {
 
     private final CourseService courseService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get list of courses with general information about them.", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = CourseDto.class)))})
+    })
     public List<CourseDto> getCourses(CourseCriteria courseCriteria){
         return courseService.getCourses(courseCriteria);
     }
 
     @GetMapping("/categorized")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get map of courses categorized by course category.", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = CourseDto.class)))})
+    })
     public Map<String, List<CourseDto>> getCategorizedCourses() {
         return courseService.getCategorizedCourses();
+    }
+
+    @GetMapping("/categories")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get all course categories.", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = CourseCategoryDto.class)))})
+    })
+    public List<CourseCategoryDto> getCategories() {
+        return courseService.getCategories();
+    }
+
+    @GetMapping("/categories/{slug}")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get course category.", responses = {
+            @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = CourseCategoryDto.class))})
+    })
+    public CourseCategoryDto getCategoryByUrlSlug(@PathVariable("slug") String urlSlug) {
+        return courseService.getCategoryByUrlSlug(urlSlug);
     }
 
 
@@ -47,7 +81,7 @@ public class CourseController {
 //        return courseService.getCourseDetailsByUrlSlug(urlSlug);
 //    }
 
-    @GetMapping("/{id}/lessons")
+    /*@GetMapping("/{id}/lessons")
     @ResponseStatus(HttpStatus.OK)
     public List<LessonDto> getCourseLessons(@PathVariable("id") Long courseId){
         return courseService.getCourseLessons(courseId);
@@ -57,13 +91,9 @@ public class CourseController {
     @ResponseStatus(HttpStatus.OK)
     public List<TaskDto> getCourseTasks(@PathVariable("id") Long courseId){
         return courseService.getCourseTasks(courseId);
-    }
+    }*/
 
-    @GetMapping("/categories")
-    @ResponseStatus(HttpStatus.OK)
-    public List<CourseCategoryDto> getCategories() {
-        return courseService.getCategories();
-    }
+
 
 //    @GetMapping("/categories/{id}")
 //    @ResponseStatus(HttpStatus.OK)
@@ -71,10 +101,6 @@ public class CourseController {
 //        return courseService.getCategoryById(courseCategoryId);
 //    }
 
-    @GetMapping("/categories/{slug}")
-    @ResponseStatus(HttpStatus.OK)
-    public CourseCategoryDto getCategoryByUrlSlug(@PathVariable("slug") String urlSlug) {
-        return courseService.getCategoryByUrlSlug(urlSlug);
-    }
+
 
 }

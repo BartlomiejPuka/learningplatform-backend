@@ -23,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/products")
 @Slf4j
-@Tag(name = "Course Product Tag", description = "Rest endpoints for course products")
+@Tag(name = "Course - Products", description = "Rest endpoints for course products")
 public class CourseProductController {
 
     private final CourseProductService courseProductService;
