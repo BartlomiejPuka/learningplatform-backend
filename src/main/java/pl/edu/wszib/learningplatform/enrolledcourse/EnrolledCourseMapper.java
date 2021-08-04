@@ -28,6 +28,7 @@ public class EnrolledCourseMapper {
                 .courseId(course.getId())
                 .courseTitle(course.getTitle())
                 .courseIconUrl(courseDetails.getIconUrl())
+                .courseUrlSlug(courseDetails.getUrlSlug())
                 .purchasedDate(enrolledCourse.getPurchasedDate())
                 .completed(enrolledCourse.isCompleted())
                 .totalLessonsCount((long) lessonList.size())

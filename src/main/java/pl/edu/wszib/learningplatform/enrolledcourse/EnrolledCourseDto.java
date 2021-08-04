@@ -15,6 +15,7 @@ public class EnrolledCourseDto {
     Long courseId;
     String courseTitle;
     String courseIconUrl;
+    String courseUrlSlug;
     LocalDate purchasedDate;
     boolean completed;
     Long totalLessonsCount;
