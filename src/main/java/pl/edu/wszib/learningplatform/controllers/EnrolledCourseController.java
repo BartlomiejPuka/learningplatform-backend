@@ -90,7 +90,7 @@ public class EnrolledCourseController {
         return enrolledLessonService.getCourseLessonDetails(courseId, lessonOrderId, userPrincipal.getUser());
     }
 
-    @GetMapping("/{courseId}/tasks")
+    @GetMapping("/{courseUrlSlug}/tasks")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get list of tasks by particular course.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
@@ -100,9 +100,9 @@ public class EnrolledCourseController {
                             )
                     )})
     })
-    public List<EnrolledTaskDto> getAllCourseTasks(@PathVariable("courseId") Long courseId,
+    public List<EnrolledTaskDto> getAllCourseTasks(@PathVariable("courseUrlSlug") String courseUrlSlug,
                                                    @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return enrolledTaskService.getAllCourseTasks(courseId, userPrincipal.getUser());
+        return enrolledTaskService.getAllCourseTasks(courseUrlSlug, userPrincipal.getUser());
     }
 
     @GetMapping("/{courseId}/tasks/{taskOrderId}/details")

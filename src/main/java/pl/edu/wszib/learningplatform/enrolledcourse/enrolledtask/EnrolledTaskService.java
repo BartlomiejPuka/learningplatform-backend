@@ -19,8 +19,8 @@ public class EnrolledTaskService {
 
     private final TaskProgressRepository taskProgressRepository;
 
-    public List<EnrolledTaskDto> getAllCourseTasks(Long courseId, User user) {
-        List<TaskProgress> taskProgressList = taskProgressRepository.findByUserCourseIdAndUserCourseUserId(courseId, user.getId());
+    public List<EnrolledTaskDto> getAllCourseTasks(String courseUrlSlug, User user) {
+        List<TaskProgress> taskProgressList = taskProgressRepository.findByCourseUrlSlugAndUserId(courseUrlSlug, user.getId());
         return taskProgressList.stream().map(EnrolledTaskMapper::toDto).collect(toList());
     }
 
