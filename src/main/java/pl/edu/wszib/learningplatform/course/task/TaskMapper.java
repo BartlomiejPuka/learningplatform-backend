@@ -11,7 +11,7 @@ public class TaskMapper {
                 .id(task.getId())
                 .description(task.getDescription())
                 .orderId(task.getOrderId())
-                .SEID(task.getSEID())
+                .SEID(task.getSeid())
                 .title(task.getTitle())
                 .build();
     }

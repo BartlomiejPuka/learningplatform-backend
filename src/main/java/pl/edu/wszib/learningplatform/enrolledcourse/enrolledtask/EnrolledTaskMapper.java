@@ -13,9 +13,10 @@ public class EnrolledTaskMapper {
                 .completed(taskProgress.isCompleted())
                 .completionDate(taskProgress.getCompletionDate())
                 .orderId(task.getOrderId())
-                .SEID(task.getSEID())
+                .seid(task.getSeid())
                 .title(task.getTitle())
                 .description(task.getDescription())
+                .urlSlug(task.getUrlSlug())
                 .build();
     }
 }

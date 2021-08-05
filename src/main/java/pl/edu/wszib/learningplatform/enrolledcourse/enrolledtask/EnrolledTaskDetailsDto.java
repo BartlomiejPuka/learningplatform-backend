@@ -11,7 +11,8 @@ public class EnrolledTaskDetailsDto {
     boolean completed;
     LocalDate completionDate;
     Long orderId;
-    String SEID;
+    String seid;
     String title;
     String description;
+    String urlSlug;
 }

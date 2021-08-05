@@ -20,11 +20,13 @@ public class Task {
 
     private Long orderId;
 
-    private String SEID;
+    private String seid;
 
     private String title;
 
     private String description;
+
+    private String urlSlug;
 
     @ManyToOne
     private Course course;

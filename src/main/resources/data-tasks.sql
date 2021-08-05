@@ -1,13 +1,13 @@
 
 INSERT INTO
-    tasks(title, description, seid, order_id, course_id)
+    tasks(title, description, seid, order_id, course_id, url_slug)
 VALUES
-    ('Print hello world', 'Napisz program wypisujacy napis hello world.', 'tD2Ln2MoPz', 1, 12),
-    ('Fizz buzz', 'Rozwiaz zadanie fizz buzz.', 'tD2Ln2MoPz', 2, 12),
-    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'tD2Ln2MoPz', 3, 12),
-    ('Print hello world', 'Napisz program wypisujacy napis hello world.', 'tD2Ln2MoPz', 1, 10),
-    ('Fizz buzz', 'Rozwiaz zadanie fizz buzz.', 'tD2Ln2MoPz', 2, 10),
-    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'tD2Ln2MoPz', 3, 10);
+    ('Print hello world', 'Napisz program wypisujacy napis hello world.', 'tD2Ln2MoPz', 1, 12, 'hello-world-task'),
+    ('Fizz buzz', 'Rozwiaz zadanie fizz buzz.', 'LSJ5HmtmAu', 2, 12, 'fizz-buzz-task'),
+    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'Y3B599AdUW', 3, 12, 'even-numbers-task'),
+    ('Print hello world', 'Napisz program wypisujacy napis hello world.', 'tD2Ln2MoPz', 1, 10, 'hello-world-task'),
+    ('Fizz buzz', 'Rozwiaz zadanie fizz buzz.', 'LSJ5HmtmAu', 2, 10, 'fizz-buzz-task'),
+    ('Parzyste liczby', 'Wypisz parzyste liczby od 0 do 10.', 'Y3B599AdUW', 3, 10, 'even-numbers-task');
 
 
 

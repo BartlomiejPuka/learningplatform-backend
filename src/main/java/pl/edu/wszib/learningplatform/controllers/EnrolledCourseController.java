@@ -105,7 +105,7 @@ public class EnrolledCourseController {
         return enrolledTaskService.getAllCourseTasks(courseUrlSlug, userPrincipal.getUser());
     }
 
-    @GetMapping("/{courseId}/tasks/{taskOrderId}/details")
+    @GetMapping("/{courseUrlSlug}/tasks/{taskUrlSlug}/details")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get details of task by particular course.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
@@ -115,13 +115,13 @@ public class EnrolledCourseController {
                             )
                     )})
     })
-    public EnrolledTaskDetailsDto getCourseTaskDetails(@PathVariable("courseId") Long courseId,
-                                                       @PathVariable("taskOrderId") Long taskOrderId,
+    public EnrolledTaskDetailsDto getCourseTaskDetails(@PathVariable("courseUrlSlug") String courseUrlSlug,
+                                                       @PathVariable("taskUrlSlug") String taskUrlSlug,
                                                        @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return enrolledTaskService.getCourseTaskDetails(courseId, taskOrderId, userPrincipal.getUser());
+        return enrolledTaskService.getCourseTaskDetails(courseUrlSlug, taskUrlSlug, userPrincipal.getUser());
     }
 
-    @PutMapping("/{courseId}/tasks/{taskOrderId}/complete")
+    /*@PutMapping("/{courseId}/tasks/{taskOrderId}/complete")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Complete course task by user.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200")
@@ -130,7 +130,7 @@ public class EnrolledCourseController {
                                    @PathVariable("taskOrderId") Long taskOrderId,
                                    @AuthenticationPrincipal UserPrincipal userPrincipal) {
         enrolledTaskService.completeCourseTask(courseId, taskOrderId, userPrincipal.getUser());
-    }
+    }*/
 
     @PutMapping("/{courseId}/lessons/{lessonOrderId}/complete")
     @ResponseStatus(HttpStatus.OK)

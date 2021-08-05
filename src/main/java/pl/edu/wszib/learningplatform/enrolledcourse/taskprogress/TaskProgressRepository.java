@@ -11,9 +11,14 @@ public interface TaskProgressRepository extends JpaRepository<TaskProgress, Long
 
     @Query("SELECT tp FROM TaskProgress tp " +
             "WHERE tp.userCourse.course.details.urlSlug = :courseUrlSlug " +
-            "and tp.userCourse.user.id = :userId ")
+            "AND tp.userCourse.user.id = :userId ")
     List<TaskProgress> findByCourseUrlSlugAndUserId(String courseUrlSlug, Long userId);
 
-    TaskProgress findByUserCourseIdAndTaskOrderIdAndUserCourseUserId(Long courseId, Long taskOrderId, Long userId);
+
+    @Query("SELECT tp FROM TaskProgress tp " +
+            "WHERE tp.userCourse.course.details.urlSlug = :courseUrlSlug " +
+            "AND tp.task.urlSlug = :taskUrlSlug " +
+            "AND tp.userCourse.user.id = :userId ")
+    TaskProgress findByCourseUrlSlugAndTaskUrlSlugAndUserId(String courseUrlSlug, String taskUrlSlug, Long userId);
 
 }

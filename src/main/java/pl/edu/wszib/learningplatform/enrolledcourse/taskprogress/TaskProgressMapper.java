@@ -9,7 +9,7 @@ public class TaskProgressMapper {
         Task task = taskProgress.getTask();
         return TaskProgressDto.builder()
                 .id(task.getId())
-                .SEID(task.getSEID())
+                .SEID(task.getSeid())
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .completed(taskProgress.isCompleted())

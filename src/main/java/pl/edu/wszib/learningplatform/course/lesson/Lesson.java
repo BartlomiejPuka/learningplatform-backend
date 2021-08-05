@@ -26,6 +26,8 @@ public class Lesson {
 
     private String description;
 
+    private String urlSlug;
+
     @ManyToOne
     private Course course;
 
