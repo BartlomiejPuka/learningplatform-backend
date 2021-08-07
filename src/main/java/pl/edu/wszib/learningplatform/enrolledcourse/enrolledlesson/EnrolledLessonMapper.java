@@ -24,6 +24,7 @@ public class EnrolledLessonMapper {
             .title(lesson.getTitle())
             .description(lesson.getDescription())
             .lessonFiles(extractLessonFiles(lesson.getLessonFiles()))
+            .urlSlug(lesson.getUrlSlug())
             .build();
     }
 

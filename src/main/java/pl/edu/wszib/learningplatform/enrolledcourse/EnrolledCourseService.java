@@ -30,4 +30,11 @@ public class EnrolledCourseService {
                 .map(CourseMapper::toDto)
                 .collect(toList());
     }
+
+    public EnrolledCourseDto getCourseByCourseUrlSlug(String courseUrlSlug, User user) {
+        return enrolledCourseRepository.findByCourseUrlSlugAndUserId(courseUrlSlug, user.getId())
+                .map(EnrolledCourseMapper::toDto)
+                .orElse(null);
+
+    }
 }

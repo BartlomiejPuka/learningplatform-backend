@@ -50,7 +50,7 @@ public class EnrolledCourseMapper {
         if (completed == 0) {
             return 0d;
         }
-        return (double) ((total / completed)*100);
+        return (completed / ((double)total))*100;
     }
 
     private Double calculateTasksProgressPercentage(List<TaskProgress> taskProgress) {
@@ -60,7 +60,7 @@ public class EnrolledCourseMapper {
         if (completed == 0) {
             return 0d;
         }
-        return (double) ((total / completed)*100);
+        return ( completed / ((double) total) )*100;
     }
 
     private Long getCompletedTaskCount(List<TaskProgress> taskProgress){

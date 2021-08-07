@@ -14,5 +14,7 @@ public class EnrolledTaskDetailsDto {
     String seid;
     String title;
     String description;
-    String urlSlug;
+
+    String taskUrlSlug;
+    String courseUrlSlug;
 }

@@ -17,4 +17,5 @@ public class EnrolledLessonDto {
     String title;
     String description;
     List<LessonFileDto> lessonFiles;
+    String urlSlug;
 }

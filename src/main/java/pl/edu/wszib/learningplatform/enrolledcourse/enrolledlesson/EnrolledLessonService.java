@@ -18,9 +18,14 @@ public class EnrolledLessonService {
 
     private final LessonProgressRepository lessonProgressRepository;
 
-    public List<EnrolledLessonDto> getAllCourseLessons(Long courseId, User user) {
-        List<LessonProgress> lessonProgressList = lessonProgressRepository.findByUserCourseIdAndUserCourseUserId(courseId, user.getId());
+    public List<EnrolledLessonDto> getAllCourseLessons(String courseUrlSlug, User user) {
+        List<LessonProgress> lessonProgressList = lessonProgressRepository.findByCourseUrlSlugAndUserId(courseUrlSlug, user.getId());
         return lessonProgressList.stream().map(EnrolledLessonMapper::toDto).collect(toList());
+    }
+
+    public EnrolledLessonDetailsDto getCourseLessonDetails(Long courseId, Long lessonOrderId, User user) {
+        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonOrderIdAndUserCourseUserId(courseId, lessonOrderId, user.getId());
+        return EnrolledLessonDetailsMapper.toDto(lessonProgress);
     }
 
     public void completeCourseLesson(Long courseId, Long lessonOrderId, User user) {
@@ -28,10 +33,5 @@ public class EnrolledLessonService {
         lessonProgress.setCompleted(true);
         lessonProgress.setCompletionDate(LocalDate.now());
         lessonProgressRepository.save(lessonProgress);
-    }
-
-    public EnrolledLessonDetailsDto getCourseLessonDetails(Long courseId, Long lessonOrderId, User user) {
-        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonOrderIdAndUserCourseUserId(courseId, lessonOrderId, user.getId());
-        return EnrolledLessonDetailsMapper.toDto(lessonProgress);
     }
 }

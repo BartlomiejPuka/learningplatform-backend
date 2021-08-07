@@ -61,7 +61,14 @@ public class EnrolledCourseController {
         return enrolledCourseService.getAllNotBoughtCourses(userPrincipal.getUser());
     }
 
-    @GetMapping("/{courseId}/lessons")
+    @GetMapping("/{courseUrlSlug}")
+    @ResponseStatus(HttpStatus.OK)
+    public EnrolledCourseDto getCourseByCourseUrlSlug(@PathVariable("courseUrlSlug") String courseUrlSlug,
+                                                      @AuthenticationPrincipal UserPrincipal userPrincipal){
+        return enrolledCourseService.getCourseByCourseUrlSlug(courseUrlSlug, userPrincipal.getUser());
+    }
+
+    @GetMapping("/{courseUrlSlug}/lessons")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get list of lessons by particular course.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
@@ -71,9 +78,9 @@ public class EnrolledCourseController {
                             )
                     )})
     })
-    public List<EnrolledLessonDto> getAllCourseLessons(@PathVariable("courseId") Long courseId,
+    public List<EnrolledLessonDto> getAllCourseLessons(@PathVariable("courseUrlSlug") String courseUrlSlug,
                                                        @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return enrolledLessonService.getAllCourseLessons(courseId, userPrincipal.getUser());
+        return enrolledLessonService.getAllCourseLessons(courseUrlSlug, userPrincipal.getUser());
     }
 
     @GetMapping("/{courseId}/lessons/{lessonOrderId}/details")
@@ -121,16 +128,16 @@ public class EnrolledCourseController {
         return enrolledTaskService.getCourseTaskDetails(courseUrlSlug, taskUrlSlug, userPrincipal.getUser());
     }
 
-    /*@PutMapping("/{courseId}/tasks/{taskOrderId}/complete")
+    @PutMapping("/{courseUrlSlug}/tasks/{taskUrlSlug}/complete")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Complete course task by user.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200")
     })
-    public void completeCourseTask(@PathVariable("courseId") Long courseId,
-                                   @PathVariable("taskOrderId") Long taskOrderId,
+    public void completeCourseTask(@PathVariable("courseUrlSlug") String courseUrlSlug,
+                                   @PathVariable("taskUrlSlug") String taskUrlSlug,
                                    @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        enrolledTaskService.completeCourseTask(courseId, taskOrderId, userPrincipal.getUser());
-    }*/
+        enrolledTaskService.completeCourseTask(courseUrlSlug, taskUrlSlug, userPrincipal.getUser());
+    }
 
     @PutMapping("/{courseId}/lessons/{lessonOrderId}/complete")
     @ResponseStatus(HttpStatus.OK)
