@@ -23,13 +23,13 @@ public class EnrolledLessonService {
         return lessonProgressList.stream().map(EnrolledLessonMapper::toDto).collect(toList());
     }
 
-    public EnrolledLessonDetailsDto getCourseLessonDetails(Long courseId, Long lessonOrderId, User user) {
-        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonOrderIdAndUserCourseUserId(courseId, lessonOrderId, user.getId());
+    public EnrolledLessonDetailsDto getCourseLessonDetails(String courseUrlSlug, String lessonUrlSlug, User user) {
+        LessonProgress lessonProgress = lessonProgressRepository.findByCourseUrlSlugAndLessonUrlSlugAndUserId(courseUrlSlug, lessonUrlSlug, user.getId());
         return EnrolledLessonDetailsMapper.toDto(lessonProgress);
     }
 
-    public void completeCourseLesson(Long courseId, Long lessonOrderId, User user) {
-        LessonProgress lessonProgress = lessonProgressRepository.findByUserCourseIdAndLessonOrderIdAndUserCourseUserId(courseId, lessonOrderId, user.getId());
+    public void completeCourseLesson(String courseUrlSlug, String lessonUrlSlug, User user) {
+        LessonProgress lessonProgress = lessonProgressRepository.findByCourseUrlSlugAndLessonUrlSlugAndUserId(courseUrlSlug, lessonUrlSlug, user.getId());
         lessonProgress.setCompleted(true);
         lessonProgress.setCompletionDate(LocalDate.now());
         lessonProgressRepository.save(lessonProgress);

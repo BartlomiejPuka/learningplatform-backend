@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface TaskProgressRepository extends JpaRepository<TaskProgress, Long> {
 
-    List<TaskProgress> findByUserCourseIdAndUserCourseUserId(Long courseId, Long userId);
-
     @Query("SELECT tp FROM TaskProgress tp " +
             "WHERE tp.userCourse.course.details.urlSlug = :courseUrlSlug " +
             "AND tp.userCourse.user.id = :userId ")

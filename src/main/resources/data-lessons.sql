@@ -23,3 +23,17 @@ VALUES
     (12, 6),
     (12, 7),
     (12, 8);
+
+INSERT INTO
+    lesson_files(lesson_id, file_url)
+VALUES
+    (1, 'assets/course/podstawy-java/1.1-programowanie-obiektowe.html'),
+    (1, 'assets/course/podstawy-java/1.2-programowanie-obiektowe.html'),
+    (1, 'assets/course/podstawy-java/1.3-programowanie-obiektowe.html');
+
+INSERT INTO
+    lessons_lesson_files(lesson_id, lesson_files_id)
+values
+    (1, 1),
+    (1, 2),
+    (1, 3);

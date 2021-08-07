@@ -5,12 +5,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "lesson_files")
 @Getter
 public class LessonFile {
 
@@ -21,4 +19,6 @@ public class LessonFile {
 
     public String fileUrl;
 
+    @ManyToOne
+    public Lesson lesson;
 }

@@ -83,7 +83,7 @@ public class EnrolledCourseController {
         return enrolledLessonService.getAllCourseLessons(courseUrlSlug, userPrincipal.getUser());
     }
 
-    @GetMapping("/{courseId}/lessons/{lessonOrderId}/details")
+    @GetMapping("/{courseUrlSlug}/lessons/{lessonUrlSlug}/details")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get details of lesson by particular course.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200", content = {
@@ -91,10 +91,10 @@ public class EnrolledCourseController {
                             schema = @Schema(implementation = EnrolledLessonDetailsDto.class)
                     )})
     })
-    public EnrolledLessonDetailsDto getCourseLessonDetails(@PathVariable("courseId") Long courseId,
-                                                           @PathVariable("lessonOrderId") Long lessonOrderId,
+    public EnrolledLessonDetailsDto getCourseLessonDetails(@PathVariable("courseUrlSlug") String courseUrlSlug,
+                                                           @PathVariable("lessonUrlSlug") String lessonUrlSlug,
                                                            @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return enrolledLessonService.getCourseLessonDetails(courseId, lessonOrderId, userPrincipal.getUser());
+        return enrolledLessonService.getCourseLessonDetails(courseUrlSlug, lessonUrlSlug, userPrincipal.getUser());
     }
 
     @GetMapping("/{courseUrlSlug}/tasks")
@@ -139,14 +139,14 @@ public class EnrolledCourseController {
         enrolledTaskService.completeCourseTask(courseUrlSlug, taskUrlSlug, userPrincipal.getUser());
     }
 
-    @PutMapping("/{courseId}/lessons/{lessonOrderId}/complete")
+    @PutMapping("/{courseUrlSlug}/lessons/{lessonUrlSlug}/complete")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Complete course lesson by user.", responses = {
             @ApiResponse(description = "Successful Operation", responseCode = "200")
     })
-    public void completeCourseLesson(@PathVariable("courseId") Long courseId,
-                                   @PathVariable("lessonOrderId") Long lessonOrderId,
+    public void completeCourseLesson(@PathVariable("courseUrlSlug") String courseUrlSlug,
+                                   @PathVariable("lessonUrlSlug") String lessonUrlSlug,
                                    @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        enrolledLessonService.completeCourseLesson(courseId, lessonOrderId, userPrincipal.getUser());
+        enrolledLessonService.completeCourseLesson(courseUrlSlug, lessonUrlSlug, userPrincipal.getUser());
     }
 }
