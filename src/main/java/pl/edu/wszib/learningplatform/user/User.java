@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
 @Entity
-@Table( name = "users")
+@Table( name = "platform_users")
 @Setter
 @Getter
 @AllArgsConstructor

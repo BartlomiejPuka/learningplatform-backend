@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/learning_platform?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: admin
+    initialization-mode: always
+    platform: mysql
+    data:
+      classpath:data-course-categories.sql,
+      classpath:data-courses.sql,
+      classpath:data-users.sql,
+      classpath:data-lessons.sql,
+      classpath:data-tasks.sql,
+      classpath:data-enrolled-courses.sql
+  jpa:
+    hibernate.ddl-auto: create
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+  mail:
+    host: smtp.mailtrap.io
+    port: 25
+    username: ebd9118ff80498
+    password: 8564227e949800
+    protocol: smtp
