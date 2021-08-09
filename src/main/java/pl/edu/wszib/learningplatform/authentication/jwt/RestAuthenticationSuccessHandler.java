@@ -49,8 +49,5 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
                 .sign(Algorithm.HMAC256(secret));
         response.addHeader(AUTHORIZATION_HEADER, BEARER_PREFIX + token);
         response.addHeader("refresh-token", refreshTokenService.generateRefreshToken().getToken());
-//        response.addHeader("Access-Control-Allow-Origin", "*");
-//        response.addHeader("Access-Control-Allow-Header", "*");
-//        response.addHeader("Access-Control-Expose-Headers", "*");
     }
 }
