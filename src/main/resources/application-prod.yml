@@ -14,7 +14,7 @@ spring:
       classpath:data-enrolled-courses.sql
   jpa:
     hibernate.ddl-auto: create
-    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
   mail:
     host: smtp.mailtrap.io
     port: 25
