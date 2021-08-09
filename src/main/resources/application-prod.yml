@@ -1,10 +1,9 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver;
     url:
     username:
     password:
-    initialization-mode: create
+    initialization-mode: always
     data:
       classpath:data-course-categories.sql,
       classpath:data-courses.sql,
