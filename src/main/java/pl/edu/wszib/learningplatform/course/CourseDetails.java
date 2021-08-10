@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class CourseDetails {
     private String author;
-    @Lob
+    @Column(columnDefinition="TEXT")
     private String description;
 
     private String iconUrl;
